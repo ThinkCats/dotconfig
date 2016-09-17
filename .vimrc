@@ -274,3 +274,6 @@ let g:pymode_syntax_space_errors = g:pymode_syntax_all
 
 " Don't autofold code
 let g:pymode_folding = 0
+
+" Override run current python file key shortcut to Ctrl-e
+let g:pymode_run_bind = "<C-b>"
