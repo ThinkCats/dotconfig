@@ -45,5 +45,7 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'scrooloose/nerdcommenter'
 Plug 'suan/vim-instant-markdown'
+...
+...
 ```
 
