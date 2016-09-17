@@ -1,6 +1,14 @@
 vimrc
 ===
 
+### 2016.9.17更新
+增加python支持
+
+```
+Plug 'klen/python-mode'
+Plug 'davidhalter/jedi-vim'
+```
+
 我的vim配置，基础版本fork自[一个NeoVim的配置文件](https://github.com/TyOverby/nvim)，当前迁移到了vim中，并且添加了一些扩展(行列提醒，代码折叠，代码块提示等)，适合于开发JavaScript,Html,Css应用，并且可用于编写markdown（采用suan/vim-instant-markdown插件，需有nodejs工具支持）。
 
 ### 插件列表
