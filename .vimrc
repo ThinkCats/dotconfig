@@ -249,6 +249,9 @@ set nofoldenable
 " ]M            Jump on next class or method (normal, visual, operator modes)
 let g:pymode_rope = 0
 
+" 选择python版本,当前版本目测不支持
+"let g:pymode_python = 'python3'
+
 " Documentation
 let g:pymode_doc = 1
 let g:pymode_doc_key = 'K'
@@ -275,5 +278,17 @@ let g:pymode_syntax_space_errors = g:pymode_syntax_all
 " Don't autofold code
 let g:pymode_folding = 0
 
-" Override run current python file key shortcut to Ctrl-e
+" Run Python Code
+let g:pymode_run = 1
+let g:pymode_run_bind = '<leader>r' "在vim中运行
+
+" 跳转函数定义 Ctrl + ]
+let g:pymode_rope_goto_definition_bind = "<C-]>"
+
+" 运行当前代码
 let g:pymode_run_bind = "<C-b>"
+
+" 格式化代码
+noremap <F8> :PymodeLintAuto<CR>
+
+
