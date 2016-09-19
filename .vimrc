@@ -172,21 +172,8 @@ function! IndentWithI()
 endfunction
 nnoremap <expr> i IndentWithI()
 
-" Format JSON
-if has("python")
-    python << EOF
-import vim
-import json
-def FormatJSON(fmtlStart, fmtlEnd):
-    fmtlStart = fmtlStart-1
-    jsonStr = "\n".join(vim.current.buffer[fmtlStart:fmtlEnd])
-    prettyJson = json.dumps(json.loads(jsonStr), sort_keys=True, indent=4, separators=(',', ': '), ensure_ascii=False)
-    prettyJson = prettyJson.encode('utf8')
-    vim.current.buffer[fmtlStart:fmtlEnd] = prettyJson.split('\n')
-EOF
-    com! -range -bar FmtJSON :python FormatJSON(<line1>, <line2>)
-endif
-
+" JSON 格式化
+com! FormatJSON %!python3 -m json.tool
 
 
 " Turn off auto-insert of comments
