@@ -32,6 +32,7 @@ Plug 'suan/vim-instant-markdown'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'klen/python-mode'
 Plug 'davidhalter/jedi-vim'
+Plug 'adrienverge/vim-python-logging'
 call plug#end()
 
 
@@ -237,7 +238,7 @@ set nofoldenable
 let g:pymode_rope = 0
 
 " 选择python版本,当前版本目测不支持
-"let g:pymode_python = 'python3'
+let g:pymode_python = 'python3'
 
 " Documentation
 let g:pymode_doc = 1
@@ -267,15 +268,14 @@ let g:pymode_folding = 0
 
 " Run Python Code
 let g:pymode_run = 1
-let g:pymode_run_bind = '<leader>r' "在vim中运行
 
 " 跳转函数定义 Ctrl + ]
 let g:pymode_rope_goto_definition_bind = "<C-]>"
 
 " 运行当前代码
-let g:pymode_run_bind = "<C-b>"
+" let g:pymode_run_bind = "<C-b>"
+nnoremap <buffer> <C-b> :exec '!python3' shellescape(@%, 1)<cr>
 
 " 格式化代码
 noremap <F8> :PymodeLintAuto<CR>
-
 

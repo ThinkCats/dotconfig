@@ -3,6 +3,9 @@ vimrc
 
 我的vim配置，基础版本fork自[一个NeoVim的配置文件](https://github.com/TyOverby/nvim)，当前迁移到了vim中，并且添加了一些扩展(行列提醒，代码折叠，代码块提示等)，适合于开发JavaScript,Html,Css应用，并且可用于编写markdown（采用suan/vim-instant-markdown插件，需有nodejs工具支持）。
 
+### 2016.9.22
+修改运行python的方式，暂不使用python mode的运行方式。目前直接运行的方式更靠谱，并且支持debug.
+
 ### 2016.9.18
 增加快捷键F8自动格式化代码，Ctrl+b 运行代码
 
