@@ -33,6 +33,7 @@ Plug 'skywind3000/asyncrun.vim'
 Plug 'klen/python-mode'
 Plug 'davidhalter/jedi-vim'
 Plug 'adrienverge/vim-python-logging'
+Plug 'thinca/vim-quickrun'
 call plug#end()
 
 
@@ -273,8 +274,17 @@ let g:pymode_run = 1
 let g:pymode_rope_goto_definition_bind = "<C-]>"
 
 " 运行当前代码
-" let g:pymode_run_bind = "<C-b>"
-nnoremap <buffer> <C-b> :exec '!python3' shellescape(@%, 1)<cr>
+let g:pymode_run_bind = "<C-b>"
+noremap <silent> <C-l> <Esc>:!python3  %<CR>
+
+" let g:quickrun_config = {}
+" let g:quickrun_config._ = {
+"             \ 'outputter/buffer/split': ''
+"             \ }
+" 
+" autocmd FileType quickrun resize 8
+" let g:quickrun_no_default_key_mappings = 1
+" map <C-b> :QuickRun<CR>
 
 " 格式化代码
 noremap <F8> :PymodeLintAuto<CR>
