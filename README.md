@@ -3,8 +3,12 @@ vimrc
 
 我的vim配置，基础版本fork自[一个NeoVim的配置文件](https://github.com/TyOverby/nvim)，当前迁移到了vim中，并且添加了一些扩展(行列提醒，代码折叠，代码块提示等)，适合于开发JavaScript,Html,Css应用，并且可用于编写markdown（采用suan/vim-instant-markdown插件，需有nodejs工具支持）。
 
-### 2016.9.22
-修改运行python的方式，暂不使用python mode的运行方式。目前直接运行的方式更靠谱，并且支持debug.
+最近用了下python，发现vim作为python编辑器，貌似定制性很高，于是折腾了一把。
+
+### 2016.9.23
+好吧，为了在当前窗口中显示文件运行的结果，大费周章，终于解决了，还是靠vim比较靠谱，插件茫茫多，各有自己的长处，却不是我想要的。命令前一个 ':w' 就可以实现不跳出窗口了。
+运行代码仍为Ctrl+b，显示当前窗口文件的运行结果，支持python debug，断点增加方式'<leader> + b'，当前已经无痛了。
+
 
 ### 2016.9.18
 增加快捷键F8自动格式化代码，Ctrl+b 运行代码

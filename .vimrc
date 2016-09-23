@@ -274,8 +274,10 @@ let g:pymode_run = 1
 let g:pymode_rope_goto_definition_bind = "<C-]>"
 
 " 运行当前代码
-let g:pymode_run_bind = "<C-b>"
-noremap <silent> <C-l> <Esc>:!python3  %<CR>
+let g:pymode_run_bind = "<C-l>" "python mode的方式
+
+" 自定义运行代码
+noremap <silent> <C-b> <Esc>:w !python3  % <CR>
 
 " let g:quickrun_config = {}
 " let g:quickrun_config._ = {
