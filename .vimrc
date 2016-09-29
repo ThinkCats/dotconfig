@@ -1,7 +1,8 @@
 " Plugins
 call plug#begin('~/.config/nvim/plugged')
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-sensible'
-"Plug 'morhetz/gruvbox'
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug '907th/vim-auto-save'
@@ -25,7 +26,6 @@ Plug 'tpope/vim-jdaddy'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'luochen1990/rainbow'
-Plug 'altercation/vim-colors-solarized'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'scrooloose/nerdcommenter'
 Plug 'suan/vim-instant-markdown'
@@ -73,6 +73,10 @@ set cursorcolumn
 " 主题
 set background=dark
 colorscheme NeoSolarized
+
+" airline 主题
+set laststatus=2
+let g:airline_theme='solarized'
 
 
 set numberwidth=4
@@ -147,7 +151,6 @@ let g:delimitMate_backspace = 2
 let g:delimitMate_expand_cr = 2
 let g:delimitMate_expand_space = 1
 au FileType rust let b:delimitMate_quotes = "\""
-
 
 " Smart Indent
 function! IndentWithI()
