@@ -1,7 +1,7 @@
 " Plugins
 call plug#begin('~/.config/nvim/plugged')
 Plug 'tpope/vim-sensible'
-Plug 'morhetz/gruvbox'
+"Plug 'morhetz/gruvbox'
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug '907th/vim-auto-save'
@@ -34,10 +34,13 @@ Plug 'klen/python-mode'
 Plug 'davidhalter/jedi-vim'
 Plug 'adrienverge/vim-python-logging'
 Plug 'thinca/vim-quickrun'
+Plug 'brookhong/k.vim'
+Plug 'iCyMind/NeoSolarized'
 call plug#end()
 
 
 " Misc Editor Preferences
+set termguicolors
 set ignorecase
 set smartcase
 set nospell
@@ -67,31 +70,13 @@ filetype plugin indent on
 set cursorline
 set cursorcolumn
 
-" Style
-let g:gruvbox_bold = 0
-let g:gruvbox_italic = 0
-let g:gruvbox_underline = 0
-let g:gruvbox_undercurl = 0
-
-colo gruvbox
+" 主题
 set background=dark
-set bg=dark
-hi EndOfBuffer ctermfg=bg
-set fillchars=
+colorscheme NeoSolarized
 
-hi! link CursorLineNr LineNr
-hi! VertSplit ctermbg=bg
-hi! FoldColumn ctermbg=bg
-hi! SignColumn ctermbg=bg
-hi! GruvboxRedSign ctermfg=167 ctermbg=bg guifg=#fb4934 guibg=bg
-hi! GruvboxGreenSign ctermfg=142 ctermbg=bg guifg=#b8bb26 guibg=bg
-hi! GruvboxAquaSign ctermfg=108 ctermbg=bg guifg=#8ec07c guibg=bg
-hi! GruvboxBlueSign ctermfg=109 ctermbg=bg guifg=#83a598 guibg=bg
-hi! GruvboxRedSign ctermfg=167 ctermbg=bg guifg=#fb4934 guibg=bg
 
 set numberwidth=4
 set foldcolumn=2
-
 
 " Light Line
 let g:lightline = {
@@ -178,11 +163,11 @@ nnoremap <expr> i IndentWithI()
 com! FormatJSON %!python3 -m json.tool
 
 
-" Turn off auto-insert of comments
-" augroup auto_comment
-"       au!
-"       au FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-" augroup END
+" 关闭自动注释
+ augroup auto_comment
+       au!
+       au FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+ augroup END
 
 " Toggle paste ident
 set pastetoggle=<F2>
@@ -238,9 +223,6 @@ set nofoldenable
 " ]M            Jump on next class or method (normal, visual, operator modes)
 let g:pymode_rope = 0
 
-" 选择python版本,当前版本目测不支持
-let g:pymode_python = 'python3'
-
 " Documentation
 let g:pymode_doc = 1
 let g:pymode_doc_key = 'K'
@@ -273,11 +255,17 @@ let g:pymode_run = 1
 " 跳转函数定义 Ctrl + ]
 let g:pymode_rope_goto_definition_bind = "<C-]>"
 
-" 运行当前代码
-let g:pymode_run_bind = "<C-l>" "python mode的方式
+" 不显示格式错误提示
+let g:pymode_lint_cwindow = 0
+
+" 查看代码格式错误快捷键
+noremap <C-l> :lopen <CR>
+
+" 格式化代码
+noremap <F8> :PymodeLintAuto<CR>
 
 " 自定义运行代码
-noremap <silent> <C-b> <Esc>:w !python3  % <CR>
+noremap <silent> <C-b> <Esc>:w !python3 % <CR>
 
 " let g:quickrun_config = {}
 " let g:quickrun_config._ = {
@@ -288,6 +276,4 @@ noremap <silent> <C-b> <Esc>:w !python3  % <CR>
 " let g:quickrun_no_default_key_mappings = 1
 " map <C-b> :QuickRun<CR>
 
-" 格式化代码
-noremap <F8> :PymodeLintAuto<CR>
-
+let g:ycm_python_binary_path = '/Library/Frameworks/Python.framework/Versions/3.5/bin/python3'
