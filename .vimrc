@@ -41,7 +41,8 @@ call plug#end()
 
 
 " Misc Editor Preferences
-set termguicolors
+"set termguicolors
+set t_Co=256
 set ignorecase
 set smartcase
 set nospell
@@ -50,7 +51,6 @@ set nobackup
 set noswapfile
 set hidden
 set number
-set nowrap
 set ttimeout
 set ttimeoutlen=0
 set clipboard+=unnamedplus
@@ -58,6 +58,14 @@ set shortmess=I
 set nofoldenable
 "let loaded_matchparen=1
 let mapleader=";"
+
+" 光标样式
+
+
+" 不折行
+" set nowrap
+" 折行
+set wrap
 
 " Tabs
 set softtabstop=4
@@ -75,9 +83,8 @@ runtime macros/matchit.vim
 " 行列高亮
 set cursorline
 set cursorcolumn
-
 " 主题
-set background=dark
+"set background=dark
 colorscheme NeoSolarized
 
 " airline 主题
@@ -192,6 +199,16 @@ else
   let &t_SI = "\<Esc>]50;CursorShape=1\x7"
   let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
+if has("autocmd")
+      au VimEnter,InsertLeave * silent execute '!echo -ne "\e[2 q"' | redraw!
+        au InsertEnter,InsertChange *
+            \ if v:insertmode == 'i' |
+            \   silent execute '!echo -ne "\e[6 q"' | redraw! |
+            \ elseif v:insertmode == 'r' |
+            \   silent execute '!echo -ne "\e[4 q"' | redraw! |
+            \ endif
+          au VimLeave * silent execute '!echo -ne "\e[ q"' | redraw!
+      endif
 
 " rainbow highlight
 let g:rainbow_active = 1
@@ -286,3 +303,6 @@ noremap <silent> <C-b> <Esc>:w !python3 % <CR>
 " map <C-b> :QuickRun<CR>
 
 let g:ycm_python_binary_path = '/Library/Frameworks/Python.framework/Versions/3.5/bin/python3'
+
+"tpl格式转换为html
+au BufNewFile,BufRead *.xml,*.tpl set ft=html
