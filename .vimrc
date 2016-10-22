@@ -36,6 +36,7 @@ Plug 'adrienverge/vim-python-logging'
 Plug 'thinca/vim-quickrun'
 Plug 'brookhong/k.vim'
 Plug 'iCyMind/NeoSolarized'
+Plug 'tpope/vim-surround'
 call plug#end()
 
 
@@ -65,6 +66,11 @@ set shiftwidth=4
 set ts=4
 set expandtab
 filetype plugin indent on
+
+" 开启%匹配闭合标签
+set nocompatible
+filetype plugin on
+runtime macros/matchit.vim
 
 " 行列高亮
 set cursorline
