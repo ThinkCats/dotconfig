@@ -280,15 +280,4 @@ noremap <F8> :PymodeLintAuto<CR>
 let g:pymode_run_bind = '<C-b>'
 
 " 自定义运行代码
-"noremap <silent> <C-b> <Esc>:w !python3 % <CR>
-
-" let g:quickrun_config = {}
-" let g:quickrun_config._ = {
-"             \ 'outputter/buffer/split': ''
-"             \ }
-" 
-" autocmd FileType quickrun resize 8
-" let g:quickrun_no_default_key_mappings = 1
-" map <C-b> :QuickRun<CR>
-
-"let g:ycm_python_binary_path = '/Library/Frameworks/Python.framework/Versions/3.5/bin/python3'
+" noremap <silent> <C-b> <Esc>:w !python3 % <CR>
