@@ -5,33 +5,42 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-sensible'
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
+Plug '907th/vim-auto-save'
 Plug 'thirtythreeforty/lessspace.vim'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'szw/vim-ctrlspace'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'neomake/neomake'
+Plug 'Raimondi/delimitMate'
 Plug 'plasticboy/vim-markdown'
+Plug 'cespare/vim-toml'
 Plug 'othree/html5.vim'
 Plug 'leafgarland/typescript-vim'
+Plug 'itchyny/lightline.vim'
+Plug 'PProvost/vim-ps1'
 Plug 'valloric/YouCompleteMe'
 Plug 'marijnh/tern_for_vim'
+Plug 'tpope/vim-jdaddy'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'luochen1990/rainbow'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'scrooloose/nerdcommenter'
-Plug 'iamcco/markdown-preview.vim'
+Plug 'suan/vim-instant-markdown'
 Plug 'klen/python-mode'
 Plug 'davidhalter/jedi-vim'
+Plug 'adrienverge/vim-python-logging'
 Plug 'tpope/vim-surround'
-Plug 'docunext/closetag.vim'
 Plug 'jdkanani/vim-material-theme'
-
-
+Plug 'junegunn/vim-easy-align'
 call plug#end()
 
 
 " Misc Editor Preferences
 set termguicolors
+"set t_Co=256
 set ignorecase
 set smartcase
 set nospell
@@ -40,7 +49,6 @@ set nobackup
 set noswapfile
 set hidden
 set number
-set nowrap
 set ttimeout
 set ttimeoutlen=0
 set clipboard+=unnamedplus
@@ -48,6 +56,15 @@ set shortmess=I
 set nofoldenable
 "let loaded_matchparen=1
 let mapleader=";"
+
+
+set numberwidth=4
+set foldcolumn=2
+
+" 不折行
+" set nowrap
+" 折行
+set wrap
 
 " Tabs
 set softtabstop=4
@@ -65,24 +82,54 @@ runtime macros/matchit.vim
 " 行列高亮
 set cursorline
 set cursorcolumn
-
 " 主题
 set background=dark
 "colorscheme NeoSolarized
-"colorscheme gruvbox
-"color space-vim-dark
 colorscheme material-theme
 
 " airline 主题
-"set laststatus=2
-"let g:airline_theme='solarized'
-let g:airline_theme = "hybrid"
+set laststatus=2
+let g:airline_theme='hybrid'
+
+
+
 
 " html 标签补全
 let g:closetag_html_style=1
 
-set numberwidth=4
-set foldcolumn=2
+" markdown preview
+let g:mkdp_path_to_chrome = "open -a Google\\ Chrome"
+
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip*=)
+nmap ga <Plug>(EasyAlign)
+
+
+
+" Light Line
+let g:lightline = {
+    \ 'colorscheme': 'wombat',
+    \ 'active': {
+    \   'left': [ [],
+    \             [ 'mode', 'paste' ],
+    \             [ 'fugitive', 'readonly', 'filename' ] ]
+    \ },
+    \ 'component': {
+    \   'readonly': '%{&filetype=="help"?"":&readonly?"⭤":""}',
+    \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
+    \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}'
+    \ },
+    \ 'component_visible_condition': {
+    \   'readonly': '(&filetype!="help"&& &readonly)',
+    \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
+    \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
+    \ },
+    \ 'separator': { 'left': '', 'right': '' },
+    \ 'subseparator': { 'left': '', 'right': '' }
+\}
+
 
 " Nerd Tree
 map <silent> <Tab> :NERDTreeTabsToggle<CR>
@@ -117,11 +164,19 @@ let g:gitgutter_sign_column_always = 1
 let g:CtrlSpaceSearchTiming = 10
 
 
+" Neomake
+let g:neomake_echo_current_error=1
+let g:neomake_verbose=0
+autocmd BufWritePost *.rs NeomakeProject cargo
+autocmd BufWritePost *.ts NeomakeProject typescript_project
+autocmd BufWritePost *.ts Neomake tslint
+
+
 " Delimitmate
-"let g:delimitMate_backspace = 2
-"let g:delimitMate_expand_cr = 2
-"let g:delimitMate_expand_space = 1
-"au FileType rust let b:delimitMate_quotes = "\""
+let g:delimitMate_backspace = 2
+let g:delimitMate_expand_cr = 2
+let g:delimitMate_expand_space = 1
+au FileType rust let b:delimitMate_quotes = "\""
 
 " Smart Indent
 function! IndentWithI()
@@ -157,6 +212,16 @@ else
   let &t_SI = "\<Esc>]50;CursorShape=1\x7"
   let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
+if has("autocmd")
+      au VimEnter,InsertLeave * silent execute '!echo -ne "\e[2 q"' | redraw!
+        au InsertEnter,InsertChange *
+            \ if v:insertmode == 'i' |
+            \   silent execute '!echo -ne "\e[6 q"' | redraw! |
+            \ elseif v:insertmode == 'r' |
+            \   silent execute '!echo -ne "\e[4 q"' | redraw! |
+            \ endif
+          au VimLeave * silent execute '!echo -ne "\e[ q"' | redraw!
+      endif
 
 " rainbow highlight
 let g:rainbow_active = 1
@@ -241,5 +306,5 @@ noremap <F8> :PymodeLintAuto<CR>
 " 自定义运行代码
 noremap <silent> <C-b> <Esc>:w !python3 % <CR>
 
-" markdown preview
-let g:mkdp_path_to_chrome = "open -a Google\\ Chrome"
+"tpl格式转换为html
+au BufNewFile,BufRead *.xml,*.tpl set ft=html
