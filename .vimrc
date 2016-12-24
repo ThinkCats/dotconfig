@@ -61,6 +61,10 @@ let mapleader=";"
 set numberwidth=4
 set foldcolumn=2
 
+" 设置超过80长度提示
+set colorcolumn=81
+
+
 " 不折行
 " set nowrap
 " 折行
