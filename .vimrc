@@ -95,9 +95,6 @@ colorscheme material-theme
 set laststatus=2
 let g:airline_theme='hybrid'
 
-
-
-
 " html 标签补全
 let g:closetag_html_style=1
 
@@ -113,27 +110,27 @@ nmap ga <Plug>(EasyAlign)
 
 
 " Light Line
-let g:lightline = {
-    \ 'colorscheme': 'wombat',
-    \ 'active': {
-    \   'left': [ [],
-    \             [ 'mode', 'paste' ],
-    \             [ 'fugitive', 'readonly', 'filename' ] ]
-    \ },
-    \ 'component': {
-    \   'readonly': '%{&filetype=="help"?"":&readonly?"⭤":""}',
-    \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
-    \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}'
-    \ },
-    \ 'component_visible_condition': {
-    \   'readonly': '(&filetype!="help"&& &readonly)',
-    \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
-    \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
-    \ },
-    \ 'separator': { 'left': '', 'right': '' },
-    \ 'subseparator': { 'left': '', 'right': '' }
-\}
-
+"let g:lightline = {
+"    \ 'colorscheme': 'wombat',
+"    \ 'active': {
+"    \   'left': [ [],
+"    \             [ 'mode', 'paste' ],
+"    \             [ 'fugitive', 'readonly', 'filename' ] ]
+"    \ },
+"    \ 'component': {
+"    \   'readonly': '%{&filetype=="help"?"":&readonly?"⭤":""}',
+"    \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
+"    \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}'
+"    \ },
+"    \ 'component_visible_condition': {
+"    \   'readonly': '(&filetype!="help"&& &readonly)',
+"    \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
+"    \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
+"    \ },
+"    \ 'separator': { 'left': '', 'right': '' },
+"    \ 'subseparator': { 'left': '', 'right': '' }
+"\}
+"
 
 " Nerd Tree
 map <silent> <Tab> :NERDTreeTabsToggle<CR>
