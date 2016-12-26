@@ -35,6 +35,8 @@ Plug 'adrienverge/vim-python-logging'
 Plug 'tpope/vim-surround'
 Plug 'jdkanani/vim-material-theme'
 Plug 'junegunn/vim-easy-align'
+Plug 'jelera/vim-javascript-syntax'
+Plug 'vimwiki/vimwiki'
 call plug#end()
 
 
@@ -77,6 +79,7 @@ set shiftwidth=4
 set ts=4
 set expandtab
 filetype plugin indent on
+syntax on
 
 " 开启%匹配闭合标签
 set nocompatible
@@ -86,6 +89,7 @@ runtime macros/matchit.vim
 " 行列高亮
 set cursorline
 set cursorcolumn
+
 " 主题
 set background=dark
 "colorscheme NeoSolarized
@@ -94,6 +98,7 @@ colorscheme material-theme
 " airline 主题
 set laststatus=2
 let g:airline_theme='hybrid'
+
 
 " html 标签补全
 let g:closetag_html_style=1
@@ -107,30 +112,39 @@ xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip*=)
 nmap ga <Plug>(EasyAlign)
 
-
+if has("gui_running")
+    "winpos 20 20            " 指定窗口出现的位置，坐标原点在屏幕左上角
+    "set lines=20 columns=90 " 指定窗口大小，lines为高度，columns为宽度
+    set guioptions-=m       " 隐藏菜单栏
+    set guioptions-=T       " 隐藏工具栏
+    set guioptions-=L       " 隐藏左侧滚动条
+    set guioptions-=r       " 隐藏右侧滚动条
+    set guioptions-=b        " 显示底部滚动条
+    "set nowrap               " 设置不自动换行
+endif
 
 " Light Line
-"let g:lightline = {
-"    \ 'colorscheme': 'wombat',
-"    \ 'active': {
-"    \   'left': [ [],
-"    \             [ 'mode', 'paste' ],
-"    \             [ 'fugitive', 'readonly', 'filename' ] ]
-"    \ },
-"    \ 'component': {
-"    \   'readonly': '%{&filetype=="help"?"":&readonly?"⭤":""}',
-"    \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
-"    \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}'
-"    \ },
-"    \ 'component_visible_condition': {
-"    \   'readonly': '(&filetype!="help"&& &readonly)',
-"    \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
-"    \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
-"    \ },
-"    \ 'separator': { 'left': '', 'right': '' },
-"    \ 'subseparator': { 'left': '', 'right': '' }
-"\}
-"
+let g:lightline = {
+    \ 'colorscheme': 'wombat',
+    \ 'active': {
+    \   'left': [ [],
+    \             [ 'mode', 'paste' ],
+    \             [ 'fugitive', 'readonly', 'filename' ] ]
+    \ },
+    \ 'component': {
+    \   'readonly': '%{&filetype=="help"?"":&readonly?"⭤":""}',
+    \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
+    \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}'
+    \ },
+    \ 'component_visible_condition': {
+    \   'readonly': '(&filetype!="help"&& &readonly)',
+    \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
+    \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
+    \ },
+    \ 'separator': { 'left': '', 'right': '' },
+    \ 'subseparator': { 'left': '', 'right': '' }
+\}
+
 
 " Nerd Tree
 map <silent> <Tab> :NERDTreeTabsToggle<CR>
