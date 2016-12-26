@@ -28,7 +28,6 @@ Plug 'mxw/vim-jsx'
 Plug 'luochen1990/rainbow'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'scrooloose/nerdcommenter'
-Plug 'suan/vim-instant-markdown'
 Plug 'klen/python-mode'
 Plug 'davidhalter/jedi-vim'
 Plug 'adrienverge/vim-python-logging'
@@ -37,6 +36,8 @@ Plug 'jdkanani/vim-material-theme'
 Plug 'junegunn/vim-easy-align'
 Plug 'jelera/vim-javascript-syntax'
 Plug 'vimwiki/vimwiki'
+Plug 'iamcco/mathjax-support-for-mkdp'
+Plug 'iamcco/markdown-preview.vim'
 call plug#end()
 
 
