@@ -48,7 +48,8 @@ values."
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      ivy
-     auto-completion
+     (auto-completion :variables
+                      spacemacs-default-company-backends '(company-files company-capf))  ;; enable html autocomplete
      ;; better-defaults
      emacs-lisp
      git
@@ -298,11 +299,25 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
+
+  (setq configuration-layer--elpa-archives
+        '(("melpa-cn" . "http://elpa.zilongshanren.com/melpa/")
+          ("org-cn"   . "http://elpa.zilongshanren.com/org/")
+          ("gnu-cn"   . "http://elpa.zilongshanren.com/gnu/")))
+
+
   (setq-default
+
+   ;; Reactjs Ident Config 
+   (with-eval-after-load 'web-mode
+     (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
+     (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
+     (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil)))
+
    (with-eval-after-load 'org
      ;; here goes your Org config :)
-     ;; ....
      )
+
    )
   )
 
@@ -314,14 +329,31 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
+  ;; power line config
   (setq powerline-default-separator 'bar)
+
+  ;; irc config
   (setq rcirc-server-alist
         '(("irc.freenode.net"
-           :user "thinkcats"
+           :user "ThinkCats"
            :port "6667"
            :password "576351Hi."
            :channels ("#linuxba"))))
 
+
+  ;; reactjs ident config
+  (setq-default
+   ;; js2-mode
+   js2-basic-offset 2
+   ;; web-mode
+   css-indent-offset 2
+   web-mode-markup-indent-offset 2
+   web-mode-css-indent-offset 2
+   web-mode-code-indent-offset 2
+   web-mode-attr-indent-offset 2)
+
+
+  ;; system paste/copy config
   (defun copy-to-clipboard ()
     "Copies selection to x-clipboard."
     (interactive)
@@ -337,7 +369,6 @@ you should place your code here."
             (deactivate-mark))
         (message "No region active; can't yank to clipboard!")))
   )
-
   (defun paste-from-clipboard ()
     "Pastes from x-clipboard."
     (interactive)
@@ -351,6 +382,7 @@ you should place your code here."
     )
   (evil-leader/set-key "o y" 'copy-to-clipboard)
   (evil-leader/set-key "o p" 'paste-from-clipboard)
+  ;; system paste/copy config end
 
 )
 
@@ -364,7 +396,7 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (org-projectile org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot rcirc-notify rcirc-color smeargle orgit org magit-gitflow gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit with-editor emoji-cheat-sheet-plus company-emoji yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode cython-mode company-anaconda anaconda-mode pythonic vmd-mode xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode haml-mode emmet-mode company-web web-completion-data zonokai-theme zenburn-theme zen-and-art-theme underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme tronesque-theme toxi-theme tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spacegray-theme soothe-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme seti-theme reverse-theme railscasts-theme purple-haze-theme professional-theme planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme pastels-on-dark-theme organic-green-theme omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme niflheim-theme naquadah-theme mustang-theme monokai-theme monochrome-theme molokai-theme moe-theme minimal-theme material-theme majapahit-theme lush-theme light-soap-theme jbeans-theme jazz-theme ir-black-theme inkpot-theme heroku-theme hemisu-theme hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme gandalf-theme flatui-theme flatland-theme firebelly-theme farmhouse-theme espresso-theme dracula-theme django-theme darktooth-theme autothemer darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes afternoon-theme flycheck-pos-tip pos-tip flycheck ac-ispell company-tern dash-functional tern company-statistics company auto-yasnippet auto-complete mmm-mode markdown-toc markdown-mode gh-md js2-refactor yasnippet multiple-cursors web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-mode js-doc coffee-mode evil-unimpaired ws-butler window-numbering which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-make helm helm-core google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump popup f s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash async aggressive-indent adaptive-wrap ace-window ace-link avy quelpa package-build spacemacs-theme))))
+    (org-projectile org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot rcirc-notify rcirc-color smeargle orgit org magit-gitflow gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit with-editor emoji-cheat-sheet-plus company-emoji yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode cython-mode company-anaconda anaconda-mode pythonic vmd-mode xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode haml-mode emmet-mode company-web web-completion-data flycheck-pos-tip pos-tip flycheck ac-ispell company-tern dash-functional tern company-statistics company auto-yasnippet auto-complete mmm-mode markdown-toc markdown-mode gh-md js2-refactor yasnippet multiple-cursors web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-mode js-doc coffee-mode evil-unimpaired ws-butler window-numbering which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-make helm helm-core google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump popup f s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash async aggressive-indent adaptive-wrap ace-window ace-link avy quelpa package-build spacemacs-theme))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
