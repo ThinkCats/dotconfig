@@ -2,6 +2,7 @@
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
+
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration.
 You should not put any user code in this function besides modifying the variable
@@ -134,7 +135,10 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(zenburn
+   dotspacemacs-themes '(solarized-dark
+                         arjen-grey
+                         gotham
+                         zenburn
                          spacemacs-dark
                          spacemacs-light)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
@@ -143,6 +147,7 @@ values."
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Input"
                                :size 13
+                               :adstyle "Mono"
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -306,6 +311,13 @@ before packages are loaded. If you are unsure, you should try in setting them in
           ("gnu-cn"   . "http://elpa.zilongshanren.com/gnu/")))
 
 
+  (custom-set-faces
+   ;; custom-set-faces was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(org-table ((t (:foreground "#6c71c4" :family "Ubuntu Mono")))))
+
   (setq-default
 
    ;; Reactjs Ident Config 
@@ -319,6 +331,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
      )
 
    )
+
   )
 
 (defun dotspacemacs/user-config ()
@@ -330,7 +343,7 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
   ;; power line config
-  (setq powerline-default-separator 'bar)
+  (setq powerline-default-separator 'nil)
 
   ;; irc config
   (setq rcirc-server-alist
@@ -384,6 +397,10 @@ you should place your code here."
   (evil-leader/set-key "o p" 'paste-from-clipboard)
   ;; system paste/copy config end
 
+  ;; pdf chinese
+  (setq org-latex-pdf-process '("xelatex -interaction nonstopmode %f"
+                                "xelatex -interaction nonstopmode %f"))
+
 )
 
 
@@ -396,7 +413,7 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (org-projectile org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot rcirc-notify rcirc-color smeargle orgit org magit-gitflow gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit with-editor emoji-cheat-sheet-plus company-emoji yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode cython-mode company-anaconda anaconda-mode pythonic vmd-mode xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode haml-mode emmet-mode company-web web-completion-data flycheck-pos-tip pos-tip flycheck ac-ispell company-tern dash-functional tern company-statistics company auto-yasnippet auto-complete mmm-mode markdown-toc markdown-mode gh-md js2-refactor yasnippet multiple-cursors web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-mode js-doc coffee-mode evil-unimpaired ws-butler window-numbering which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-make helm helm-core google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump popup f s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash async aggressive-indent adaptive-wrap ace-window ace-link avy quelpa package-build spacemacs-theme))))
+    (pangu-spacing find-by-pinyin-dired chinese-pyim chinese-pyim-basedict ace-pinyin pinyinlib ace-jump-mode org-projectile org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot rcirc-notify rcirc-color smeargle orgit org magit-gitflow gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit with-editor emoji-cheat-sheet-plus company-emoji yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode cython-mode company-anaconda anaconda-mode pythonic vmd-mode xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode haml-mode emmet-mode company-web web-completion-data flycheck-pos-tip pos-tip flycheck ac-ispell company-tern dash-functional tern company-statistics company auto-yasnippet auto-complete mmm-mode markdown-toc markdown-mode gh-md js2-refactor yasnippet multiple-cursors web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-mode js-doc coffee-mode evil-unimpaired ws-butler window-numbering which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-make helm helm-core google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump popup f s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash async aggressive-indent adaptive-wrap ace-window ace-link avy quelpa package-build spacemacs-theme))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
