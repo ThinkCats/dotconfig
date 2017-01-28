@@ -37,13 +37,11 @@ Plug 'adrienverge/vim-python-logging'
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'neomake/neomake'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-sensible'
-Plug '907th/vim-auto-save'
 Plug 'thirtythreeforty/lessspace.vim'
 Plug 'tpope/vim-unimpaired'
-Plug 'szw/vim-ctrlspace'
+"Plug 'szw/vim-ctrlspace'
 Plug 'cespare/vim-toml'
 Plug 'PProvost/vim-ps1'
 Plug 'tpope/vim-jdaddy'
@@ -52,7 +50,6 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'tpope/vim-surround'
 Plug 'junegunn/vim-easy-align'
 Plug 'vimwiki/vimwiki'
-Plug 'iamcco/mathjax-support-for-mkdp'
 call plug#end()
 
 
@@ -66,7 +63,7 @@ set nohlsearch
 set nobackup
 set noswapfile
 set hidden
-set number
+set relativenumber
 set ttimeout
 set ttimeoutlen=0
 set clipboard+=unnamedplus
@@ -138,29 +135,6 @@ if has("gui_running")
     "set nowrap               " 设置不自动换行
 endif
 
-" Light Line
-"let g:lightline = {
-"    \ 'colorscheme': 'wombat',
-"    \ 'active': {
-"    \   'left': [ [],
-"    \             [ 'mode', 'paste' ],
-"    \             [ 'fugitive', 'readonly', 'filename' ] ]
-"    \ },
-"    \ 'component': {
-"    \   'readonly': '%{&filetype=="help"?"":&readonly?"⭤":""}',
-"    \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
-"    \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}'
-"    \ },
-"    \ 'component_visible_condition': {
-"    \   'readonly': '(&filetype!="help"&& &readonly)',
-"    \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
-"    \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
-"    \ },
-"    \ 'separator': { 'left': '', 'right': '' },
-"    \ 'subseparator': { 'left': '', 'right': '' }
-"\}
-
-
 " Nerd Tree
 map <silent> <Tab> :NERDTreeTabsToggle<CR>
 let g:NERDTreeMinimalUI = 1
@@ -189,17 +163,16 @@ let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
 let g:gitgutter_sign_column_always = 1
 
-
 " Ctrl Space
 let g:CtrlSpaceSearchTiming = 10
 
 
 " Neomake
-let g:neomake_echo_current_error=1
-let g:neomake_verbose=0
-autocmd BufWritePost *.rs NeomakeProject cargo
-autocmd BufWritePost *.ts NeomakeProject typescript_project
-autocmd BufWritePost *.ts Neomake tslint
+" let g:neomake_echo_current_error=1
+" let g:neomake_verbose=0
+" autocmd BufWritePost *.rs NeomakeProject cargo
+" autocmd BufWritePost *.ts NeomakeProject typescript_project
+" autocmd BufWritePost *.ts Neomake tslint
 
 
 " Delimitmate
