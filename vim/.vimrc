@@ -1,43 +1,58 @@
 " Plugins
-call plug#begin('~/.config/nvim/plugged')
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'tpope/vim-sensible'
-Plug 'scrooloose/nerdtree'
-Plug 'jistr/vim-nerdtree-tabs'
-Plug '907th/vim-auto-save'
-Plug 'thirtythreeforty/lessspace.vim'
-Plug 'tpope/vim-unimpaired'
+call plug#begin('~/.vim/plugged')
+
+" version control
+" git
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'szw/vim-ctrlspace'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'neomake/neomake'
-Plug 'Raimondi/delimitMate'
+
+" completion
+Plug 'valloric/YouCompleteMe'
+
+" theme
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'ashfinal/vim-colors-violet'
+
+" lang
+" markdown
 Plug 'plasticboy/vim-markdown'
-Plug 'cespare/vim-toml'
+Plug 'iamcco/markdown-preview.vim'
+
+" js / html
 Plug 'othree/html5.vim'
 Plug 'leafgarland/typescript-vim'
-Plug 'itchyny/lightline.vim'
-Plug 'PProvost/vim-ps1'
-Plug 'valloric/YouCompleteMe'
 Plug 'marijnh/tern_for_vim'
-Plug 'tpope/vim-jdaddy'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
-Plug 'luochen1990/rainbow'
-Plug 'nathanaelkane/vim-indent-guides'
-Plug 'scrooloose/nerdcommenter'
+Plug 'jelera/vim-javascript-syntax'
+
+" python
 Plug 'klen/python-mode'
 Plug 'davidhalter/jedi-vim'
 Plug 'adrienverge/vim-python-logging'
+
+
+" tool
+Plug 'scrooloose/nerdtree'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'neomake/neomake'
+Plug 'Raimondi/delimitMate'
+Plug 'tpope/vim-sensible'
+Plug '907th/vim-auto-save'
+Plug 'thirtythreeforty/lessspace.vim'
+Plug 'tpope/vim-unimpaired'
+Plug 'szw/vim-ctrlspace'
+Plug 'cespare/vim-toml'
+Plug 'PProvost/vim-ps1'
+Plug 'tpope/vim-jdaddy'
+Plug 'luochen1990/rainbow'
+Plug 'nathanaelkane/vim-indent-guides'
 Plug 'tpope/vim-surround'
-Plug 'jdkanani/vim-material-theme'
 Plug 'junegunn/vim-easy-align'
-Plug 'jelera/vim-javascript-syntax'
 Plug 'vimwiki/vimwiki'
 Plug 'iamcco/mathjax-support-for-mkdp'
-Plug 'iamcco/markdown-preview.vim'
 call plug#end()
 
 
@@ -65,7 +80,7 @@ set numberwidth=4
 set foldcolumn=2
 
 " 设置超过80长度提示
-set colorcolumn=81
+"set colorcolumn=81
 
 
 " 不折行
@@ -93,12 +108,11 @@ set cursorcolumn
 
 " 主题
 set background=dark
-"colorscheme NeoSolarized
-colorscheme material-theme
+colorscheme violet
 
 " airline 主题
-set laststatus=2
-let g:airline_theme='hybrid'
+"set laststatus=2
+"let g:airline_theme='violet'
 
 
 " html 标签补全
@@ -125,26 +139,26 @@ if has("gui_running")
 endif
 
 " Light Line
-let g:lightline = {
-    \ 'colorscheme': 'wombat',
-    \ 'active': {
-    \   'left': [ [],
-    \             [ 'mode', 'paste' ],
-    \             [ 'fugitive', 'readonly', 'filename' ] ]
-    \ },
-    \ 'component': {
-    \   'readonly': '%{&filetype=="help"?"":&readonly?"⭤":""}',
-    \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
-    \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}'
-    \ },
-    \ 'component_visible_condition': {
-    \   'readonly': '(&filetype!="help"&& &readonly)',
-    \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
-    \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
-    \ },
-    \ 'separator': { 'left': '', 'right': '' },
-    \ 'subseparator': { 'left': '', 'right': '' }
-\}
+"let g:lightline = {
+"    \ 'colorscheme': 'wombat',
+"    \ 'active': {
+"    \   'left': [ [],
+"    \             [ 'mode', 'paste' ],
+"    \             [ 'fugitive', 'readonly', 'filename' ] ]
+"    \ },
+"    \ 'component': {
+"    \   'readonly': '%{&filetype=="help"?"":&readonly?"⭤":""}',
+"    \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
+"    \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}'
+"    \ },
+"    \ 'component_visible_condition': {
+"    \   'readonly': '(&filetype!="help"&& &readonly)',
+"    \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
+"    \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
+"    \ },
+"    \ 'separator': { 'left': '', 'right': '' },
+"    \ 'subseparator': { 'left': '', 'right': '' }
+"\}
 
 
 " Nerd Tree
