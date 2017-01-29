@@ -37,14 +37,9 @@ Plug 'adrienverge/vim-python-logging'
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'Raimondi/delimitMate'
-Plug 'tpope/vim-sensible'
-Plug 'thirtythreeforty/lessspace.vim'
-Plug 'tpope/vim-unimpaired'
-"Plug 'szw/vim-ctrlspace'
-Plug 'cespare/vim-toml'
-Plug 'PProvost/vim-ps1'
-Plug 'tpope/vim-jdaddy'
+Plug 'Raimondi/delimitMate' "automatic closing of quotes, parenthesis, brackets, etc.
+Plug 'tpope/vim-sensible' "provide some command preview
+Plug 'thirtythreeforty/lessspace.vim' "clear the whitespace in the end of line automic
 Plug 'luochen1990/rainbow'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'tpope/vim-surround'
