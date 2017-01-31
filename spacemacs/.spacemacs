@@ -2,7 +2,6 @@
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
-
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration.
 You should not put any user code in this function besides modifying the variable
@@ -39,9 +38,8 @@ values."
      (python :variables python-enable-yapf-format-on-save t)
      (markdown :variables markdown-live-preview-engine 'vmd)
      javascript
-     emoji
-     react
-     rcirc
+     ;; emoji
+     ;; rcirc
      (shell :variables
             shell-default-term-shell "/bin/bash"
             shell-default-height 30
@@ -55,8 +53,8 @@ values."
      (auto-completion :variables
                       spacemacs-default-company-backends '(company-files company-capf))  ;; enable html autocomplete
      ;; better-defaults
-     emacs-lisp
-     git
+     ;; emacs-lisp
+     ;; git
      org
      ;; spell-checking
      syntax-checking
@@ -122,15 +120,16 @@ values."
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
-   dotspacemacs-startup-banner 'official
+   dotspacemacs-startup-banner 'random
    ;; List of items to show in startup buffer or an association list of
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
    ;; Possible values for list-type are:
    ;; `recents' `bookmarks' `projects' `agenda' `todos'."
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
-   dotspacemacs-startup-lists '((recents . 5)
-                                (projects . 7))
+   dotspacemacs-startup-lists nil
+   ;; dotspacemacs-startup-lists '((recents . 5)
+   ;;                             (projects . 7))
    ;; True if the home buffer should respond to resize events.
    dotspacemacs-startup-buffer-responsive t
    ;; Default major mode of the scratch buffer (default `text-mode')
@@ -138,19 +137,18 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(solarized-dark
-                         arjen-grey
-                         gotham
-                         zenburn
+   dotspacemacs-themes '(atom-one-dark
+                         apropospriate-dark
                          spacemacs-dark
-                         spacemacs-light)
+                         arjen-grey
+                         zenburn
+                         )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("Input"
+   dotspacemacs-default-font '("Monaco"
                                :size 13
-                               :adstyle "Mono"
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -237,7 +235,7 @@ values."
    dotspacemacs-loading-progress-bar t
    ;; If non nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
-   dotspacemacs-fullscreen-at-startup nil
+   dotspacemacs-fullscreen-at-startup t
    ;; If non nil `spacemacs/toggle-fullscreen' will not use native fullscreen.
    ;; Use to disable fullscreen animations in OSX. (default nil)
    dotspacemacs-fullscreen-use-non-native nil
@@ -266,7 +264,7 @@ values."
    ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
    ;; derivatives. If set to `relative', also turns on relative line numbers.
    ;; (default nil)
-   dotspacemacs-line-numbers t
+   dotspacemacs-line-numbers 'relative
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'evil
@@ -311,30 +309,12 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (setq configuration-layer--elpa-archives
         '(("melpa-cn" . "http://elpa.zilongshanren.com/melpa/")
           ("org-cn"   . "http://elpa.zilongshanren.com/org/")
-          ("gnu-cn"   . "http://elpa.zilongshanren.com/gnu/")))
-
-
-  (custom-set-faces
-   ;; custom-set-faces was added by Custom.
-   ;; If you edit it by hand, you could mess it up, so be careful.
-   ;; Your init file should contain only one such instance.
-   ;; If there is more than one, they won't work right.
-   '(org-table ((t (:foreground "#6c71c4" :family "Ubuntu Mono")))))
+          ("gnu-cn"   . "http://elpa.zilongshanren.com/gnu/")
+          ))
 
   (setq-default
 
-   ;; Reactjs Ident Config 
-   (with-eval-after-load 'web-mode
-     (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
-     (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
-     (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil)))
-
-   (with-eval-after-load 'org
-     ;; here goes your Org config :)
-     )
-
    )
-
   )
 
 (defun dotspacemacs/user-config ()
@@ -353,56 +333,12 @@ you should place your code here."
   (setq powerline-default-separator 'nil)
 
   ;; irc config
-  (setq rcirc-server-alist
-        '(("irc.freenode.net"
-           :user "ThinkCats"
-           :port "6667"
-           :password "576351Hi."
-           :channels ("#linuxba"))))
-
-
-  ;; reactjs ident config
-  (setq-default
-   ;; js2-mode
-   js2-basic-offset 2
-   ;; web-mode
-   css-indent-offset 2
-   web-mode-markup-indent-offset 2
-   web-mode-css-indent-offset 2
-   web-mode-code-indent-offset 2
-   web-mode-attr-indent-offset 2)
-
-
-  ;; system paste/copy config
-  (defun copy-to-clipboard ()
-    "Copies selection to x-clipboard."
-    (interactive)
-    (if (display-graphic-p)
-        (progn
-          (message "Yanked region to x-clipboard!")
-          (call-interactively 'clipboard-kill-ring-save)
-          )
-      (if (region-active-p)
-          (progn
-            (shell-command-on-region (region-beginning) (region-end) "xsel -i -b")
-            (message "Yanked region to clipboard!")
-            (deactivate-mark))
-        (message "No region active; can't yank to clipboard!")))
-  )
-  (defun paste-from-clipboard ()
-    "Pastes from x-clipboard."
-    (interactive)
-    (if (display-graphic-p)
-        (progn
-          (clipboard-yank)
-          (message "graphics active")
-          )
-      (insert (shell-command-to-string "xsel -o -b"))
-      )
-    )
-  (evil-leader/set-key "o y" 'copy-to-clipboard)
-  (evil-leader/set-key "o p" 'paste-from-clipboard)
-  ;; system paste/copy config end
+  ;; (setq rcirc-server-alist
+  ;;       '(("irc.freenode.net"
+  ;;          :user "ThinkCats"
+  ;;          :port "6667"
+  ;;          :password "576351Hi."
+  ;;          :channels ("#linuxba"))))
 
   ;; pdf chinese
   (setq org-latex-pdf-process '("xelatex -interaction nonstopmode %f"
@@ -421,9 +357,10 @@ you should place your code here."
  '(package-selected-packages
    (quote
     (go-guru go-eldoc company-go go-mode pangu-spacing find-by-pinyin-dired chinese-pyim chinese-pyim-basedict ace-pinyin pinyinlib ace-jump-mode org-projectile org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot rcirc-notify rcirc-color smeargle orgit org magit-gitflow gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit with-editor emoji-cheat-sheet-plus company-emoji yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode cython-mode company-anaconda anaconda-mode pythonic vmd-mode xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode haml-mode emmet-mode company-web web-completion-data flycheck-pos-tip pos-tip flycheck ac-ispell company-tern dash-functional tern company-statistics company auto-yasnippet auto-complete mmm-mode markdown-toc markdown-mode gh-md js2-refactor yasnippet multiple-cursors web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-mode js-doc coffee-mode evil-unimpaired ws-butler window-numbering which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-make helm helm-core google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump popup f s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash async aggressive-indent adaptive-wrap ace-window ace-link avy quelpa package-build spacemacs-theme))))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-table ((t (:foreground "#6c71c4" :family "Ubuntu Mono")))))
+ )
