@@ -7,7 +7,6 @@
 You should not put any user code in this function besides modifying the variable
 values."
   (setq-default
-
    ;; Base distribution to use. This is a layer contained in the directory
    ;; `+distribution'. For now available distributions are `spacemacs-base'
    ;; or `spacemacs'. (default 'spacemacs)
@@ -25,40 +24,37 @@ values."
    ;; If non-nil then Spacemacs will ask for confirmation before installing
    ;; a layer lazily. (default t)
    dotspacemacs-ask-for-lazy-installation t
-   ;; If non-nil layers with lazy install suppor `relativet are lazy installed.
+   ;; If non-nil layers with lazy install support are lazy installed.
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     (go :variables
-         go-tab-width 4
-         gofmt-command "goimports")
-     (python :variables python-enable-yapf-format-on-save t)
-     (markdown :variables markdown-live-preview-engine 'vmd)
-     javascript
-     ;; emoji
-     ;; rcirc
-     (shell :variables
-            shell-default-term-shell "/bin/bash"
-            shell-default-height 30
-            shell-default-position 'bottom)
+     markdown
+     html
+     yaml
+     shell
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
+     (go :variables gofmt-command "goimports"
+         go-tab-width 4)
      ivy
-     (auto-completion :variables
-                      spacemacs-default-company-backends '(company-files company-capf))  ;; enable html autocomplete
+     auto-completion
      ;; better-defaults
-     ;; emacs-lisp
-     ;; git
+     emacs-lisp
+     github
+     ;; markdown
      org
+     ;; (shell :variables
+     ;;        shell-default-height 30
+     ;;        shell-default-position 'bottom)
      ;; spell-checking
-     syntax-checking
-     ;; version-control
+     ;; syntax-checking
+     version-control
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -127,9 +123,9 @@ values."
    ;; `recents' `bookmarks' `projects' `agenda' `todos'."
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
-   dotspacemacs-startup-lists nil
    ;; dotspacemacs-startup-lists '((recents . 5)
-   ;;                             (projects . 7))
+   ;;                              (projects . 7))
+   dotspacemacs-startup-lists nil
    ;; True if the home buffer should respond to resize events.
    dotspacemacs-startup-buffer-responsive t
    ;; Default major mode of the scratch buffer (default `text-mode')
@@ -137,12 +133,10 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(atom-one-dark
-                         apropospriate-dark
+   dotspacemacs-themes '(doom-one
+                         atom-one-dark
                          spacemacs-dark
-                         arjen-grey
-                         zenburn
-                         )
+                         spacemacs-light)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
@@ -232,17 +226,17 @@ values."
    ;; If non nil a progress bar is displayed when spacemacs is loading. This
    ;; may increase the boot time on some systems and emacs builds, set it to
    ;; nil to boost the loading time. (default t)
-   dotspacemacs-loading-progress-bar t
+   dotspacemacs-loading-progress-bar nil
    ;; If non nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
-   dotspacemacs-fullscreen-at-startup t
+   dotspacemacs-fullscreen-at-startup nil
    ;; If non nil `spacemacs/toggle-fullscreen' will not use native fullscreen.
    ;; Use to disable fullscreen animations in OSX. (default nil)
    dotspacemacs-fullscreen-use-non-native nil
    ;; If non nil the frame is maximized when Emacs starts up.
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
    ;; (default nil) (Emacs 24.4+ only)
-   dotspacemacs-maximized-at-startup 80
+   dotspacemacs-maximized-at-startup t
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's active or selected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
@@ -305,16 +299,12 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
-
   (setq configuration-layer--elpa-archives
         '(("melpa-cn" . "http://elpa.zilongshanren.com/melpa/")
           ("org-cn"   . "http://elpa.zilongshanren.com/org/")
           ("gnu-cn"   . "http://elpa.zilongshanren.com/gnu/")
           ))
 
-  (setq-default
-
-   )
   )
 
 (defun dotspacemacs/user-config ()
@@ -325,27 +315,13 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
-  ;;新起一行时候，处理非顶格
+  ;; 新起一行时候，处理非顶格
   (remove-hook 'post-command-hook 'clean-aindent--check-last-point)
   (add-hook 'post-command-hook 'clean-aindent--check-last-point)
 
-  ;; power line config
-  (setq powerline-default-separator 'nil)
-
-  ;; irc config
-  ;; (setq rcirc-server-alist
-  ;;       '(("irc.freenode.net"
-  ;;          :user "ThinkCats"
-  ;;          :port "6667"
-  ;;          :password "576351Hi."
-  ;;          :channels ("#linuxba"))))
-
-  ;; pdf chinese
-  (setq org-latex-pdf-process '("xelatex -interaction nonstopmode %f"
-                                "xelatex -interaction nonstopmode %f"))
-
-)
-
+  ;; fix mode line color
+  (setq ns-use-srgb-colorspace nil)
+  )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -356,8 +332,7 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (go-guru go-eldoc company-go go-mode pangu-spacing find-by-pinyin-dired chinese-pyim chinese-pyim-basedict ace-pinyin pinyinlib ace-jump-mode org-projectile org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot rcirc-notify rcirc-color smeargle orgit org magit-gitflow gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit with-editor emoji-cheat-sheet-plus company-emoji yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode cython-mode company-anaconda anaconda-mode pythonic vmd-mode xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode haml-mode emmet-mode company-web web-completion-data flycheck-pos-tip pos-tip flycheck ac-ispell company-tern dash-functional tern company-statistics company auto-yasnippet auto-complete mmm-mode markdown-toc markdown-mode gh-md js2-refactor yasnippet multiple-cursors web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-mode js-doc coffee-mode evil-unimpaired ws-butler window-numbering which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-make helm helm-core google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump popup f s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash async aggressive-indent adaptive-wrap ace-window ace-link avy quelpa package-build spacemacs-theme))))
-
+    (rainbow-mode rainbow-identifiers color-identifiers-mode git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl magit-gh-pulls github-search github-clone github-browse-file gist gh marshal logito pcache ht smeargle orgit magit-gitflow gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit with-editor xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help mmm-mode markdown-toc markdown-mode gh-md web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode haml-mode emmet-mode company-web web-completion-data org-projectile org-present org org-pomodoro alert log4e gntp org-download htmlize gnuplot yaml-mode company-statistics company-go company auto-yasnippet yasnippet ac-ispell auto-complete go-guru go-eldoc go-mode atom-one-dark-theme ws-butler window-numbering which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spacemacs-theme spaceline smex restart-emacs request rainbow-delimiters quelpa popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra info+ indent-guide ido-vertical-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-make google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump define-word counsel-projectile column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
