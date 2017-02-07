@@ -36,6 +36,7 @@ values."
      html
      yaml
      shell
+     react
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -138,14 +139,14 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(doom-one
-                         atom-one-dark
                          spacemacs-dark
+                         atom-one-dark
                          spacemacs-light)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("Monaco"
+   dotspacemacs-default-font '("Input Mono"
                                :size 13
                                :weight normal
                                :width normal
@@ -309,7 +310,6 @@ before packages are loaded. If you are unsure, you should try in setting them in
           ("gnu-cn"   . "http://elpa.zilongshanren.com/gnu/")
           ))
 
-
   )
 
 (defun dotspacemacs/user-config ()
@@ -324,7 +324,11 @@ you should place your code here."
   (remove-hook 'post-command-hook 'clean-aindent--check-last-point)
   (add-hook 'post-command-hook 'clean-aindent--check-last-point)
 
-  ;; fix mode line color
+  (spacemacs/toggle-indent-guide-globally-on)
+
+  (setq powerline-default-separator 'slant)
+
+   ;; fix mode line color
   (setq ns-use-srgb-colorspace nil)
 
   ;; js identi
@@ -333,6 +337,11 @@ you should place your code here."
 
   ;; vuejs
   (use-package vue-mode)
+
+  ;; doom theme neotree
+  (use-package doom-neotree)
+  ;; doom theme line mode
+  (use-package doom-nlinum)
 
   )
 
@@ -352,3 +361,23 @@ you should place your code here."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(defun dotspacemacs/emacs-custom-settings ()
+  "Emacs custom settings.
+This is an auto-generated function, do not modify its content directly, use
+Emacs customize menu instead.
+This function is called at the very end of Spacemacs initialization."
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (winum powerline spinner alert log4e gntp mmm-mode markdown-mode skewer-mode simple-httpd json-snatcher json-reformat multiple-cursors js2-mode ivy-purpose window-purpose imenu-list hydra parent-mode helm helm-core haml-mode fringe-helper git-gutter+ git-commit with-editor git-gutter fuzzy flx smartparens iedit anzu evil goto-chg undo-tree highlight f all-the-icons font-lock+ diminish projectile pkg-info epl counsel swiper ivy web-completion-data s dash-functional tern go-mode company bind-map bind-key yasnippet packed dash atom-one-dark-theme async avy auto-complete popup vue-mode yaml-mode xterm-color ws-butler window-numbering which-key wgrep web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toc-org tagedit spacemacs-theme spaceline smex slim-mode shell-pop scss-mode sass-mode restart-emacs request rainbow-delimiters quelpa pug-mode popwin persp-mode pcre2el paradox org-projectile org-present org-pomodoro org-plus-contrib org-download org-bullets open-junk-file neotree multi-term move-text markdown-toc macrostep lorem-ipsum livid-mode linum-relative link-hint less-css-mode json-mode js2-refactor js-doc ivy-hydra info+ indent-guide ido-vertical-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-make google-translate golden-ratio go-guru go-eldoc gnuplot git-gutter-fringe git-gutter-fringe+ gh-md flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav dumb-jump doom-themes diff-hl define-word counsel-projectile company-web company-tern company-statistics company-go column-enforce-mode coffee-mode clean-aindent-mode auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ac-ispell))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+)
