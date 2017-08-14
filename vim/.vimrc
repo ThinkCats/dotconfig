@@ -13,6 +13,7 @@ Plug 'valloric/YouCompleteMe'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ashfinal/vim-colors-violet'
+Plug 'rakr/vim-one'
 
 " lang
 " markdown
@@ -32,6 +33,8 @@ Plug 'klen/python-mode'
 Plug 'davidhalter/jedi-vim'
 Plug 'adrienverge/vim-python-logging'
 
+" coffee
+Plug 'kchmck/vim-coffee-script'
 
 " tool
 Plug 'scrooloose/nerdtree'
@@ -65,14 +68,14 @@ set clipboard+=unnamedplus
 set shortmess=I
 set nofoldenable
 "let loaded_matchparen=1
-let mapleader=";"
+let mapleader=" "
 
 
 set numberwidth=4
 set foldcolumn=2
 
 " 设置超过80长度提示
-"set colorcolumn=81
+set colorcolumn=80
 
 
 " 不折行
@@ -99,8 +102,12 @@ set cursorline
 set cursorcolumn
 
 " 主题
-set background=dark
-colorscheme violet
+" set background=dark
+" colorscheme violet
+
+let g:airline_theme='one'
+colorscheme one
+set background=dark " for the dark version
 
 " airline 主题
 "set laststatus=2
@@ -113,6 +120,10 @@ let g:closetag_html_style=1
 " markdown preview
 let g:mkdp_path_to_chrome = "open -a Google\\ Chrome"
 
+" <Leader> [1-9] move to window [1-9]
+for s:i in range(1,9)
+    execute 'nnoremap <Leader>' . s:i . ' :' . s:i . 'wincmd w<CR>'
+endfor
 
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
@@ -156,7 +167,7 @@ let g:NERDTreeIndicatorMapCustom = {
 " Git Gutter
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
-let g:gitgutter_sign_column_always = 1
+set signcolumn=yes
 
 " Ctrl Space
 let g:CtrlSpaceSearchTiming = 10
