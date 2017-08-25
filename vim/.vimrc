@@ -10,9 +10,6 @@ Plug 'airblade/vim-gitgutter'
 Plug 'valloric/YouCompleteMe'
 
 " theme
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'ashfinal/vim-colors-violet'
 Plug 'rakr/vim-one'
 
 " lang
@@ -22,7 +19,6 @@ Plug 'iamcco/markdown-preview.vim'
 
 " js / html
 Plug 'othree/html5.vim'
-Plug 'leafgarland/typescript-vim'
 Plug 'marijnh/tern_for_vim'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
@@ -47,7 +43,6 @@ Plug 'luochen1990/rainbow'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'tpope/vim-surround'
 Plug 'junegunn/vim-easy-align'
-Plug 'vimwiki/vimwiki'
 call plug#end()
 
 
@@ -67,9 +62,16 @@ set ttimeoutlen=0
 set clipboard+=unnamedplus
 set shortmess=I
 set nofoldenable
+set novisualbell
+
+" 闪屏设置
+set noerrorbells visualbell t_vb=
+if has('autocmd')
+  autocmd GUIEnter * set visualbell t_vb=
+endif
+
 "let loaded_matchparen=1
 let mapleader=" "
-
 
 set numberwidth=4
 set foldcolumn=2
@@ -125,14 +127,27 @@ for s:i in range(1,9)
     execute 'nnoremap <Leader>' . s:i . ' :' . s:i . 'wincmd w<CR>'
 endfor
 
+" <Leader><leader>[1-9] move to tab [1-9]
+for s:i in range(1, 9)
+  execute 'nnoremap <Leader><Leader>' . s:i . ' ' . s:i . 'gt'
+endfor
+
+" <Leader>b[1-9] move to buffer [1-9]
+for s:i in range(1, 9)
+  execute 'nnoremap <Leader>b' . s:i . ' :b' . s:i . '<CR>'
+endfor
+
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip*=)
 nmap ga <Plug>(EasyAlign)
 
+
+" GUI
+set guifont=Fira\ Mono\ Medium\ for\ Powerline:h14
 if has("gui_running")
     "winpos 20 20            " 指定窗口出现的位置，坐标原点在屏幕左上角
-    "set lines=20 columns=90 " 指定窗口大小，lines为高度，columns为宽度
+    set lines=999 columns=999 " 指定窗口大小，lines为高度，columns为宽度
     set guioptions-=m       " 隐藏菜单栏
     set guioptions-=T       " 隐藏工具栏
     set guioptions-=L       " 隐藏左侧滚动条
@@ -199,6 +214,10 @@ nnoremap <expr> i IndentWithI()
 
 " JSON 格式化
 com! FormatJSON %!python3 -m json.tool
+
+" CoffeeScript preview
+com! CW :CoffeeWatch vert
+com! CR :CoffeeRun vert
 
 
 " 关闭自动注释
