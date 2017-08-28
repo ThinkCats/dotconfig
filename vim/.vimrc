@@ -10,6 +10,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'valloric/YouCompleteMe'
 
 " theme
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'rakr/vim-one'
 
 " lang
@@ -104,17 +106,12 @@ set cursorline
 set cursorcolumn
 
 " 主题
-" set background=dark
-" colorscheme violet
-
 let g:airline_theme='one'
 colorscheme one
 set background=dark " for the dark version
 
-" airline 主题
-"set laststatus=2
-"let g:airline_theme='violet'
-
+" 修改该选项为1，设置默认为按文件名搜索（否则为全路径）:
+let g:ctrlp_by_filename = 0
 
 " html 标签补全
 let g:closetag_html_style=1
