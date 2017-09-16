@@ -26,6 +26,10 @@ Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'jelera/vim-javascript-syntax'
 
+" typescript
+Plug 'leafgarland/typescript-vim'
+Plug 'Quramy/tsuquyomi'
+
 " python
 Plug 'klen/python-mode'
 Plug 'davidhalter/jedi-vim'
@@ -75,7 +79,7 @@ endif
 "let loaded_matchparen=1
 let mapleader=" "
 
-set numberwidth=4
+set numberwidth=2
 set foldcolumn=2
 
 " 设置超过80长度提示
@@ -88,11 +92,16 @@ set colorcolumn=80
 set wrap
 
 " Tabs
-set softtabstop=4
-set tabstop=4
-set shiftwidth=4
-set ts=4
-set expandtab
+autocmd FileType php,python,c,java,perl,shell,bash,vim,ruby,cpp,coffee set ai
+autocmd FileType php,python,c,java,perl,shell,bash,vim,ruby,cpp,coffee set sw=4
+autocmd FileType php,python,c,java,perl,shell,bash,vim,ruby,cpp,coffee set ts=4
+autocmd FileType php,python,c,java,perl,shell,bash,vim,ruby,cpp,coffee set sts=4
+
+autocmd FileType javascript,html,css,xml set ai
+autocmd FileType javascript,html,css,xml set sw=2
+autocmd FileType javascript,html,css,xml set ts=2
+autocmd FileType javascript,html,css,xml set sts=2
+
 filetype plugin indent on
 syntax on
 
@@ -141,7 +150,8 @@ nmap ga <Plug>(EasyAlign)
 
 
 " GUI
-set guifont=Fira\ Mono\ Medium\ for\ Powerline:h14
+set guifont=Fira\ Mono\ for\ Powerline:h14
+set linespace=3
 if has("gui_running")
     "winpos 20 20            " 指定窗口出现的位置，坐标原点在屏幕左上角
     set lines=999 columns=999 " 指定窗口大小，lines为高度，columns为宽度
@@ -333,3 +343,11 @@ noremap <silent> <C-b> <Esc>:w !python3 % <CR>
 
 "tpl格式转换为html
 au BufNewFile,BufRead *.xml,*.tpl set ft=html
+
+function! ExecuteNode()
+	let g:tsFileName = expand("%")
+	let g:nodeFileName = split(g:tsFileName,"[.]")[0].".js"
+	execute "!tsc ".g:tsFileName." && node ".g:nodeFileName.' &&rm -f '.g:nodeFileName
+endfunction
+
+com! Make :call ExecuteNode()
