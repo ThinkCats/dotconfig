@@ -12,7 +12,7 @@ Plug 'valloric/YouCompleteMe'
 " theme
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'ashfinal/vim-colors-violet'
+Plug 'rakr/vim-one'
 
 " lang
 " markdown
@@ -21,17 +21,22 @@ Plug 'iamcco/markdown-preview.vim'
 
 " js / html
 Plug 'othree/html5.vim'
-Plug 'leafgarland/typescript-vim'
 Plug 'marijnh/tern_for_vim'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'jelera/vim-javascript-syntax'
+
+" typescript
+Plug 'leafgarland/typescript-vim'
+Plug 'Quramy/tsuquyomi'
 
 " python
 Plug 'klen/python-mode'
 Plug 'davidhalter/jedi-vim'
 Plug 'adrienverge/vim-python-logging'
 
+" coffee
+Plug 'kchmck/vim-coffee-script'
 
 " tool
 Plug 'scrooloose/nerdtree'
@@ -44,7 +49,6 @@ Plug 'luochen1990/rainbow'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'tpope/vim-surround'
 Plug 'junegunn/vim-easy-align'
-Plug 'vimwiki/vimwiki'
 call plug#end()
 
 
@@ -64,15 +68,22 @@ set ttimeoutlen=0
 set clipboard+=unnamedplus
 set shortmess=I
 set nofoldenable
+set novisualbell
+
+" 闪屏设置
+set noerrorbells visualbell t_vb=
+if has('autocmd')
+  autocmd GUIEnter * set visualbell t_vb=
+endif
+
 "let loaded_matchparen=1
-let mapleader=";"
+let mapleader=" "
 
-
-set numberwidth=4
+set numberwidth=2
 set foldcolumn=2
 
 " 设置超过80长度提示
-"set colorcolumn=81
+set colorcolumn=80
 
 
 " 不折行
@@ -81,11 +92,16 @@ set foldcolumn=2
 set wrap
 
 " Tabs
-set softtabstop=4
-set tabstop=4
-set shiftwidth=4
-set ts=4
-set expandtab
+autocmd FileType php,python,c,java,perl,shell,bash,vim,ruby,cpp,coffee set ai
+autocmd FileType php,python,c,java,perl,shell,bash,vim,ruby,cpp,coffee set sw=4
+autocmd FileType php,python,c,java,perl,shell,bash,vim,ruby,cpp,coffee set ts=4
+autocmd FileType php,python,c,java,perl,shell,bash,vim,ruby,cpp,coffee set sts=4
+
+autocmd FileType javascript,html,css,xml set ai
+autocmd FileType javascript,html,css,xml set sw=2
+autocmd FileType javascript,html,css,xml set ts=2
+autocmd FileType javascript,html,css,xml set sts=2
+
 filetype plugin indent on
 syntax on
 
@@ -99,13 +115,12 @@ set cursorline
 set cursorcolumn
 
 " 主题
-set background=dark
-colorscheme violet
+let g:airline_theme='one'
+colorscheme one
+set background=dark " for the dark version
 
-" airline 主题
-"set laststatus=2
-"let g:airline_theme='violet'
-
+" 修改该选项为1，设置默认为按文件名搜索（否则为全路径）:
+let g:ctrlp_by_filename = 0
 
 " html 标签补全
 let g:closetag_html_style=1
@@ -113,15 +128,33 @@ let g:closetag_html_style=1
 " markdown preview
 let g:mkdp_path_to_chrome = "open -a Google\\ Chrome"
 
+" <Leader> [1-9] move to window [1-9]
+for s:i in range(1,9)
+    execute 'nnoremap <Leader>' . s:i . ' :' . s:i . 'wincmd w<CR>'
+endfor
+
+" <Leader><leader>[1-9] move to tab [1-9]
+for s:i in range(1, 9)
+  execute 'nnoremap <Leader><Leader>' . s:i . ' ' . s:i . 'gt'
+endfor
+
+" <Leader>b[1-9] move to buffer [1-9]
+for s:i in range(1, 9)
+  execute 'nnoremap <Leader>b' . s:i . ' :b' . s:i . '<CR>'
+endfor
 
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip*=)
 nmap ga <Plug>(EasyAlign)
 
+
+" GUI
+set guifont=Fira\ Mono\ for\ Powerline:h14
+set linespace=3
 if has("gui_running")
     "winpos 20 20            " 指定窗口出现的位置，坐标原点在屏幕左上角
-    "set lines=20 columns=90 " 指定窗口大小，lines为高度，columns为宽度
+    set lines=999 columns=999 " 指定窗口大小，lines为高度，columns为宽度
     set guioptions-=m       " 隐藏菜单栏
     set guioptions-=T       " 隐藏工具栏
     set guioptions-=L       " 隐藏左侧滚动条
@@ -156,7 +189,7 @@ let g:NERDTreeIndicatorMapCustom = {
 " Git Gutter
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
-let g:gitgutter_sign_column_always = 1
+set signcolumn=yes
 
 " Ctrl Space
 let g:CtrlSpaceSearchTiming = 10
@@ -188,6 +221,10 @@ nnoremap <expr> i IndentWithI()
 
 " JSON 格式化
 com! FormatJSON %!python3 -m json.tool
+
+" CoffeeScript preview
+com! CW :CoffeeWatch vert
+com! CR :CoffeeRun vert
 
 
 " 关闭自动注释
@@ -306,3 +343,11 @@ noremap <silent> <C-b> <Esc>:w !python3 % <CR>
 
 "tpl格式转换为html
 au BufNewFile,BufRead *.xml,*.tpl set ft=html
+
+function! ExecuteNode()
+	let g:tsFileName = expand("%")
+	let g:nodeFileName = split(g:tsFileName,"[.]")[0].".js"
+	execute "!tsc ".g:tsFileName." && node ".g:nodeFileName.' &&rm -f '.g:nodeFileName
+endfunction
+
+com! Make :call ExecuteNode()
