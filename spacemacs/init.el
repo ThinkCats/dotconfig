@@ -89,6 +89,30 @@
 
 ;;org
 (setq org-startup-indented t)
+(setq org-startup-with-inline-images t)
+(setq org-image-actual-width '(300))
+(setq truncate-lines t)
+(add-hook 'org-mode-hook 'toggle-truncate-lines)
+(use-package org-bullets
+  :ensure t
+  :config
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+  )
+
+;; other
+(show-paren-mode 1)
+(electric-pair-mode 1)
+
+;; js
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+(add-hook 'js-mode-hook 'js2-minor-mode)
+(add-to-list 'interpreter-mode-alist '("node" . js2-mode))
+;;(add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-jsx-mode))
+(add-hook 'js2-mode-hook (lambda ()
+                           (company-mode)))
+                           
+
+;; ==============================
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -100,7 +124,7 @@
     ("2beaaef4f47f22c89948fdb3859799f8f2b64c1282ec21d71d6df49d68e68862" default)))
  '(package-selected-packages
    (quote
-    (evil-magit magit company neotree window-numbering all-the-icons-ivy doom-modeline nova-theme counsel ivy which-key use-package undo-tree try))))
+    (company-tern js2-mode org-bullets evil-magit magit company neotree window-numbering all-the-icons-ivy doom-modeline nova-theme counsel ivy which-key use-package undo-tree try))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
