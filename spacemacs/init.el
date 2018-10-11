@@ -1,6 +1,7 @@
 (setq inhibit-startup-message t)
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
-(setq exec-path (append exec-path '("/usr/local/bin")))
+(setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin"))
+(setq exec-path (append exec-path '("/usr/local/bin" "/Library/TeX/texbin")))
 
 (require 'package)
 (setq package-enable-at-startup nil)
@@ -90,6 +91,8 @@
 (global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
 
 ;;org
+(setq org-html-validation-link nil)
+(setq org-html-postamble nil)
 (setq org-startup-indented t)
 (setq org-startup-with-inline-images t)
 (setq org-image-actual-width '(300))
@@ -100,6 +103,10 @@
   :config
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
   )
+(setq org-latex-pdf-process '("xelatex -interaction nonstopmode %f"
+                              "xelatex -interaction nonstopmode %f"))
+(setq org-latex-default-packages-alist
+     (remove '("AUTO" "inputenc" t) org-latex-default-packages-alist))
 
 ;; other
 (show-paren-mode 1)
@@ -156,7 +163,7 @@
     ("2beaaef4f47f22c89948fdb3859799f8f2b64c1282ec21d71d6df49d68e68862" default)))
  '(package-selected-packages
    (quote
-    (web-beautify js2-mode org-bullets evil-magit magit company neotree window-numbering all-the-icons-ivy doom-modeline nova-theme counsel ivy which-key use-package undo-tree try))))
+    (htmlize web-beautify js2-mode org-bullets evil-magit magit company neotree window-numbering all-the-icons-ivy doom-modeline nova-theme counsel ivy which-key use-package undo-tree try))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
