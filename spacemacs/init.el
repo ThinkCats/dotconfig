@@ -38,6 +38,7 @@
 
 ;;company
 (require 'company)
+(global-company-mode)
 (add-hook 'after-init-hook 'global-company-mode)
 
 ;;window number
@@ -65,6 +66,8 @@
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 (global-linum-mode t);行号
 (setq column-number-mode t)
+(setq make-backup-files nil) ; stop creating backup~ files
+(setq auto-save-default nil) ; stop creating #autosave# files
 
 ;;font
 (set-face-attribute 'default nil :height 140)
@@ -103,14 +106,17 @@
   :config
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
   )
-(setq org-latex-pdf-process '("xelatex -interaction nonstopmode %f"
-                              "xelatex -interaction nonstopmode %f"))
-(setq org-latex-default-packages-alist
-     (remove '("AUTO" "inputenc" t) org-latex-default-packages-alist))
 
 ;; other
 (show-paren-mode 1)
 (electric-pair-mode 1)
+
+;; clojure
+(add-hook 'cider-repl-mode-hook #'company-mode)
+(add-hook 'cider-mode-hook #'company-mode)
+(add-hook 'cider-repl-mode-hook #'cider-company-enable-fuzzy-completion)
+(add-hook 'cider-mode-hook #'cider-company-enable-fuzzy-completion)
+(setq cider-save-file-on-load t)
 
 ;; js
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js-mode))
@@ -119,38 +125,6 @@
 ;;(add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-jsx-mode))
 (add-hook 'js-mode-hook (lambda ()
                            (company-mode)))
-
-(eval-after-load 'js2-mode
-  '(add-hook 'js2-mode-hook
-             (lambda ()
-               (add-hook 'before-save-hook 'web-beautify-js-buffer t t))))
-
-;; Or if you're using 'js-mode' (a.k.a 'javascript-mode')
-(eval-after-load 'js
-  '(add-hook 'js-mode-hook
-             (lambda ()
-               (add-hook 'before-save-hook 'web-beautify-js-buffer t t))))
-
-(eval-after-load 'json-mode
-  '(add-hook 'json-mode-hook
-             (lambda ()
-               (add-hook 'before-save-hook 'web-beautify-js-buffer t t))))
-
-(eval-after-load 'sgml-mode
-  '(add-hook 'html-mode-hook
-             (lambda ()
-               (add-hook 'before-save-hook 'web-beautify-html-buffer t t))))
-
-(eval-after-load 'web-mode
-  '(add-hook 'web-mode-hook
-             (lambda ()
-               (add-hook 'before-save-hook 'web-beautify-html-buffer t t))))
-
-(eval-after-load 'css-mode
-  '(add-hook 'css-mode-hook
-             (lambda ()
-               (add-hook 'before-save-hook 'web-beautify-css-buffer t t))))
-
 ;; ==============================
 
 (custom-set-variables
@@ -163,7 +137,7 @@
     ("2beaaef4f47f22c89948fdb3859799f8f2b64c1282ec21d71d6df49d68e68862" default)))
  '(package-selected-packages
    (quote
-    (htmlize web-beautify js2-mode org-bullets evil-magit magit company neotree window-numbering all-the-icons-ivy doom-modeline nova-theme counsel ivy which-key use-package undo-tree try))))
+    (cider clojure-mode htmlize web-beautify js2-mode org-bullets evil-magit magit company neotree window-numbering all-the-icons-ivy doom-modeline nova-theme counsel ivy which-key use-package undo-tree try))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
