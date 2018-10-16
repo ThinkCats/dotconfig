@@ -36,6 +36,13 @@
 ;;ivy
 (ivy-mode 1)
 
+;;projectile
+(unless (package-installed-p 'projectile)
+  (package-install 'projectile))
+(projectile-mode +1)
+(define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+(define-key projectile-mode-map (kbd "C-x p") 'projectile-command-map)
+
 ;;company
 (require 'company)
 (global-company-mode)
