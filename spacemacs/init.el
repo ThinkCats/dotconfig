@@ -124,6 +124,7 @@
 (add-hook 'cider-repl-mode-hook #'cider-company-enable-fuzzy-completion)
 (add-hook 'cider-mode-hook #'cider-company-enable-fuzzy-completion)
 (setq cider-save-file-on-load t)
+(setq cider-repl-pop-to-buffer-on-connect nil)
 
 ;; js
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js-mode))
