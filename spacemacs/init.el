@@ -54,7 +54,7 @@
       (lambda () (when (equal (buffer-name) "*Calculator*") 9)))
 
 ;;theme
-(load-theme 'nova t)
+(load-theme 'tao-yang t)
 (require 'all-the-icons)
 (setq inhibit-compacting-font-caches t)
 
@@ -64,14 +64,19 @@
 
 
 ;;style
-(tool-bar-mode 0) 
-(menu-bar-mode 0) 
-(scroll-bar-mode 0) 
-(setq inhibit-startup-message t)
-(display-time-mode 1) 
-(setq display-time-24hr-format t) ;;time
+(if (display-graphic-p)
+  (progn
+    (tool-bar-mode 0)
+    (menu-bar-mode 0)
+    (scroll-bar-mode 0)
+    (setq inhibit-startup-message t)
+    (display-time-mode 1)
+    (setq display-time-24hr-format t) ;;time
+    )
+  )
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 (global-linum-mode t);行号
+(setq linum-format "%3d ")
 (setq column-number-mode t)
 (setq make-backup-files nil) ; stop creating backup~ files
 (setq auto-save-default nil) ; stop creating #autosave# files
@@ -145,7 +150,7 @@
     ("2beaaef4f47f22c89948fdb3859799f8f2b64c1282ec21d71d6df49d68e68862" default)))
  '(package-selected-packages
    (quote
-    (cider clojure-mode htmlize web-beautify js2-mode org-bullets evil-magit magit company neotree window-numbering all-the-icons-ivy doom-modeline nova-theme counsel ivy which-key use-package undo-tree try))))
+    (tao-theme cider clojure-mode htmlize web-beautify js2-mode org-bullets evil-magit magit company neotree window-numbering all-the-icons-ivy doom-modeline nova-theme counsel ivy which-key use-package undo-tree try))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
