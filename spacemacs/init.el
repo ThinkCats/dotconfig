@@ -53,27 +53,40 @@
 (setq window-numbering-assign-func
       (lambda () (when (equal (buffer-name) "*Calculator*") 9)))
 
+(require 'doom-themes)
+
+;;Theme
+;; Global settings (defaults)
+(setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+      doom-themes-enable-italic t) ; if nil, italics is universally disabled
+;; Enable flashing mode-line on errors
+;;(doom-themes-visual-bell-config)
+;; Enable custom neotree theme (all-the-icons must be installed!)
+(doom-themes-neotree-config)
+;; or for treemacs users
+(doom-themes-treemacs-config)
+;; Corrects (and improves) org-mode's native fontification.
+(doom-themes-org-config)
+
 ;;theme
-(load-theme 'tao-yang t)
+(load-theme 'doom-solarized-light t)
 (require 'all-the-icons)
 (setq inhibit-compacting-font-caches t)
 
 (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
 (add-to-list 'default-frame-alist '(ns-appearance . dark))
 
-
-
 ;;style
 (if (display-graphic-p)
   (progn
     (tool-bar-mode 0)
-    (menu-bar-mode 0)
     (scroll-bar-mode 0)
     (setq inhibit-startup-message t)
     (display-time-mode 1)
     (setq display-time-24hr-format t) ;;time
     )
   )
+(menu-bar-mode 0)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 (global-linum-mode t);行号
 (setq linum-format "%3d ")
@@ -82,7 +95,9 @@
 (setq auto-save-default nil) ; stop creating #autosave# files
 
 ;;font
-(set-face-attribute 'default nil :height 140)
+(set-face-attribute 'default nil
+		    :family "Hack"
+		    :height 135)
 (setq-default line-spacing 3)
 
 ;;mode line
@@ -139,7 +154,6 @@
 (add-hook 'js-mode-hook (lambda ()
                            (company-mode)))
 ;; ==============================
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -147,10 +161,10 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("2beaaef4f47f22c89948fdb3859799f8f2b64c1282ec21d71d6df49d68e68862" default)))
+    ("4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" default)))
  '(package-selected-packages
    (quote
-    (tao-theme cider clojure-mode htmlize web-beautify js2-mode org-bullets evil-magit magit company neotree window-numbering all-the-icons-ivy doom-modeline nova-theme counsel ivy which-key use-package undo-tree try))))
+    (doom-themes window-numbering which-key web-beautify use-package try tern skewer-mode popup pfuture paredit org-bullets neotree js2-refactor inflections hydra htmlize ht evil-magit edn doom-modeline dash-functional counsel company cider all-the-icons-ivy ace-window))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
