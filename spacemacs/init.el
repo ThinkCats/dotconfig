@@ -17,6 +17,24 @@
 (unless (package-installed-p 'use-package)
 	(package-refresh-contents)
 	(package-install 'use-package))
+(unless (package-installed-p 'undo-tree)
+	(package-install 'undo-tree))
+(unless (package-installed-p 'evil)
+	(package-install 'evil))
+(unless (package-installed-p 'ivy)
+	(package-install 'ivy))
+(unless (package-installed-p 'company)
+	(package-install 'company))
+(unless (package-installed-p 'window-numbering)
+	(package-install 'window-numbering))
+(unless (package-installed-p 'doom-themes)
+	(package-install 'doom-themes))
+(unless (package-installed-p 'doom-modeline)
+	(package-install 'doom-modeline))
+(unless (package-installed-p 'neotree)
+	(package-install 'neotree))
+(unless (package-installed-p 'projectile)
+  (package-install 'projectile))
 
 (use-package try
 	:ensure t)
@@ -37,8 +55,6 @@
 (ivy-mode 1)
 
 ;;projectile
-(unless (package-installed-p 'projectile)
-  (package-install 'projectile))
 (projectile-mode +1)
 (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
 (define-key projectile-mode-map (kbd "C-x p") 'projectile-command-map)
