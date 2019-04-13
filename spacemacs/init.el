@@ -15,26 +15,28 @@
 
 ;; Bootstrap `use-package'
 (unless (package-installed-p 'use-package)
-	(package-refresh-contents)
-	(package-install 'use-package))
+  (package-refresh-contents)
+  (package-install 'use-package))
 (unless (package-installed-p 'undo-tree)
-	(package-install 'undo-tree))
+  (package-install 'undo-tree))
 (unless (package-installed-p 'evil)
-	(package-install 'evil))
+  (package-install 'evil))
 (unless (package-installed-p 'ivy)
-	(package-install 'ivy))
+  (package-install 'ivy))
 (unless (package-installed-p 'company)
-	(package-install 'company))
+  (package-install 'company))
 (unless (package-installed-p 'window-numbering)
-	(package-install 'window-numbering))
+  (package-install 'window-numbering))
 (unless (package-installed-p 'doom-themes)
-	(package-install 'doom-themes))
+  (package-install 'doom-themes))
 (unless (package-installed-p 'doom-modeline)
-	(package-install 'doom-modeline))
+  (package-install 'doom-modeline))
 (unless (package-installed-p 'neotree)
-	(package-install 'neotree))
+  (package-install 'neotree))
 (unless (package-installed-p 'projectile)
   (package-install 'projectile))
+(unless (package-installed-p 'tide)
+  (package-install 'tide))
 
 (use-package try
 	:ensure t)
@@ -85,7 +87,7 @@
 (doom-themes-org-config)
 
 ;;theme
-(load-theme 'doom-solarized-light t)
+(load-theme 'doom-nova t)
 (require 'all-the-icons)
 (setq inhibit-compacting-font-caches t)
 
@@ -163,10 +165,25 @@
 (setq cider-repl-pop-to-buffer-on-connect nil)
 
 ;; js
+(defun setup-tide-mode ()
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1)
+  ;; company is an optional dependency. You have to
+  ;; install it separately via package-install
+  ;; `M-x package-install [ret] company`
+  (company-mode +1))
+;; formats the buffer before saving
+(add-hook 'before-save-hook 'tide-format-before-save)
+;; js mode
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js-mode))
 (add-hook 'js-mode-hook 'js2-minor-mode)
 (add-to-list 'interpreter-mode-alist '("node" . js-mode))
 ;;(add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-jsx-mode))
+(add-hook 'js-mode-hook #'setup-tide-mode)
 (add-hook 'js-mode-hook (lambda ()
                            (company-mode)))
 ;; ==============================
