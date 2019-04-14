@@ -121,6 +121,7 @@
 ;;mode line
 (require 'doom-modeline)
 (doom-modeline-init)
+(setq doom-modeline-height 20)
 
 ;;neo tree
 (require 'neotree)
