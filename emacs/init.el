@@ -1,15 +1,21 @@
-(setq inhibit-startup-message t)
+(setq inhibit-startup-message nil)
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
 (setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin"))
 (setq exec-path (append exec-path '("/usr/local/bin" "/Library/TeX/texbin")))
 
 (require 'package)
 (setq package-enable-at-startup nil)
-(setq package-archives
- 	     '(("melpa" . "http://elpa.zilongshanren.com/melpa/")
- 	       ("org-cn"   . "http://elpa.zilongshanren.com/org/")
-                ("gnu-cn"   . "http://elpa.zilongshanren.com/gnu/")
- 	     ))
+;; (setq package-archives
+;;  	     '(("melpa" . "http://elpa.zilongshanren.com/melpa/")
+;;  	       ("org-cn"   . "http://elpa.zilongshanren.com/org/")
+;;                 ("gnu-cn"   . "http://elpa.zilongshanren.com/gnu/")
+;;  	     ))
+
+;; (setq package-archives '(("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+;;                          ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
+
+(setq package-archives '(("gnu"   . "http://elpa.emacs-china.org/gnu/")
+                           ("melpa" . "http://elpa.emacs-china.org/melpa/")))
 
 (package-initialize)
 
@@ -37,6 +43,7 @@
   (package-install 'projectile))
 (unless (package-installed-p 'tide)
   (package-install 'tide))
+
 
 (use-package try
 	:ensure t)
@@ -70,6 +77,10 @@
 (window-numbering-mode 1)
 (setq window-numbering-assign-func
       (lambda () (when (equal (buffer-name) "*Calculator*") 9)))
+
+;;welcome
+(setq initial-major-mode 'text-mode)
+
 
 (require 'doom-themes)
 
@@ -114,8 +125,8 @@
 
 ;;font
 (set-face-attribute 'default nil
-		    :family "Hack"
-		    :height 135)
+		    :family "PT Mono"
+		    :height 145)
 (setq-default line-spacing 3)
 
 ;;mode line
@@ -152,6 +163,29 @@
   :config
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
   )
+(global-set-key (kbd "C-c a") 'org-agenda)
+
+;; org capture
+(defun create-blog-post ()
+        "Create an org file in ~/source/myblog/posts."
+        (interactive)
+        (let ((name (read-string "Filename: ")))
+        (expand-file-name (format "%s.org" name) "~/Documents/Blog/myblog/posts/")))
+(setq org-capture-templates
+        '(("p" "Post" plain
+                (file create-blog-post)
+                (file "~/Documents/Blog/myblog/capture-template/post.orgcaptmpl"))))
+(define-key global-map (kbd "C-c c")
+  (lambda () (interactive) (org-capture nil "p")))
+
+;; markdown
+(use-package markdown-mode
+  :ensure t
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "multimarkdown"))
 
 ;; other
 (show-paren-mode 1)
@@ -187,7 +221,19 @@
 (add-hook 'js-mode-hook #'setup-tide-mode)
 (add-hook 'js-mode-hook (lambda ()
                            (company-mode)))
+
+
+;; Common-Lisp
+(load (expand-file-name "~/.quicklisp/slime-helper.el"))
+(setq inferior-lisp-program "sbcl")
+(add-hook 'slime-mode-hook 'set-up-slime-ac)
+(add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
+(eval-after-load "auto-complete"
+  '(add-to-list 'ac-modes 'slime-repl-mode))
+(add-to-list 'auto-mode-alist '("\\.lisp\\'" . common-lisp-mode))
+
 ;; ==============================
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -196,9 +242,10 @@
  '(custom-safe-themes
    (quote
     ("4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" default)))
+ '(org-agenda-files (quote ("~/tmp/Test.org")))
  '(package-selected-packages
    (quote
-    (doom-themes window-numbering which-key web-beautify use-package try tern skewer-mode popup pfuture paredit org-bullets neotree js2-refactor inflections hydra htmlize ht evil-magit edn doom-modeline dash-functional counsel company cider all-the-icons-ivy ace-window))))
+    (yaml-mode edit-indirect markdown-mode+ go-mode ac-slime auto-complete dap-mode lsp-mode plantuml-mode doom-themes window-numbering which-key web-beautify use-package try tern skewer-mode popup pfuture paredit org-bullets neotree js2-refactor inflections hydra htmlize ht evil-magit edn doom-modeline dash-functional counsel company cider all-the-icons-ivy ace-window))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
