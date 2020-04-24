@@ -1,6 +1,6 @@
 dotconfig
 ===
 1. vimrc
-2. spacemacs
+2. emacs
 3. tmux
  
