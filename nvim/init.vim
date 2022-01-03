@@ -1,3 +1,4 @@
+
 call plug#begin('~/.vim/plugged')
 
 Plug 'scrooloose/nerdtree'
@@ -5,6 +6,7 @@ Plug 'jistr/vim-nerdtree-tabs'
 
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'shaunsingh/nord.nvim'
+"Plug 'karb94/neoscroll.nvim'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -84,6 +86,12 @@ let g:NERDTreeIndicatorMapCustom = {
     \ "Unknown"   : "?"
     \ }
 
+if exists('g:nvui')
+  " Configure nvui
+  NvuiCmdFontFamily Jetbrains Mono
+  NvuiCmdFontSize 25.0
+  NvuiScrollAnimationDuration 0.2
+endif
 
 lua <<EOF
 -- Example config in lua
@@ -95,6 +103,7 @@ vim.g.nord_italic = false
 -- Load the colorscheme
 require('nord').set()
 
+--require('neoscroll').setup()
 
 require('lualine').setup({
           options = {
@@ -117,5 +126,8 @@ lspconfig.gopls.setup(coq.lsp_ensure_capabilities({
       },
     },
   }))
+
+
+
 EOF
 
