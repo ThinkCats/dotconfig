@@ -13,6 +13,8 @@ Plug 'akinsho/toggleterm.nvim'
 
 " Go
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+" Rust
+Plug 'rust-lang/rust.vim'
 
 Plug 'neovim/nvim-lspconfig'
 Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
@@ -21,6 +23,7 @@ Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 call plug#end() 
 
 set nu
+set hidden
 set clipboard+=unnamedplus
 " Set Copy to System clipboard
 set clipboard=unnamed
@@ -65,6 +68,9 @@ map <leader>r :Rg<CR>
 
 "COQ
 let g:coq_settings = { 'auto_start': 'shut-up' }
+
+"Rust
+let g:rustfmt_autosave = 1
 
 " nerdtree
 map <silent> <Tab> :NERDTreeTabsToggle<CR>
@@ -111,6 +117,7 @@ require('lualine').setup({
 
 local lspconfig = require "lspconfig"
 local coq = require "coq" 
+
 lspconfig.gopls.setup(coq.lsp_ensure_capabilities({
     cmd = {"gopls", "serve"},
     settings = {
@@ -122,6 +129,9 @@ lspconfig.gopls.setup(coq.lsp_ensure_capabilities({
       },
     },
   }))
+
+lspconfig.rust_analyzer.setup(coq.lsp_ensure_capabilities({
+}))
 
 require("toggleterm").setup({
   -- size can be a number or function which is passed the current terminal
