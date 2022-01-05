@@ -30,6 +30,8 @@ set clipboard=unnamed
 set termguicolors
 
 syntax enable
+filetype plugin on
+filetype plugin indent on
 
 " tab 缩进
 set autoindent
@@ -64,13 +66,14 @@ map <leader>g :GFiles<CR>
 map <leader>p :FZF<CR>
 map <c-b> :Buffers<CR>
 map <leader>a :Ag<CR>
-map <leader>r :Rg<CR>
+""map <leader>r :Rg<CR>
 
 "COQ
 let g:coq_settings = { 'auto_start': 'shut-up' }
 
 "Rust
 let g:rustfmt_autosave = 1
+map <leader>r :RustRun<CR>
 
 " nerdtree
 map <silent> <Tab> :NERDTreeTabsToggle<CR>
