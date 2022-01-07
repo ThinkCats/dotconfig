@@ -10,6 +10,9 @@ Plug 'shaunsingh/nord.nvim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'akinsho/toggleterm.nvim'
+Plug 'folke/which-key.nvim'
+Plug 'jiangmiao/auto-pairs'
+Plug 'airblade/vim-gitgutter'
 
 " Go
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
@@ -50,13 +53,16 @@ for s:i in range(1,9)
 endfor
 
 " 符号补全
-inoremap ( ()<Esc>i
-inoremap [ []<Esc>i
-inoremap < <><Esc>i
-inoremap { {}<Esc>i
-inoremap ' ''<Esc>i
-inoremap " ""<Esc>i
-inoremap { {<CR>}<Esc>O
+"inoremap ( ()<Esc>i
+"inoremap [ []<Esc>i
+"inoremap < <><Esc>i
+"""inoremap { {}<Esc>i
+"inoremap ' ''<Esc>i
+"inoremap " ""<Esc>i
+"inoremap {<CR> {<CR>}<Esc>O
+
+" which key
+set timeoutlen=400
 
 map <leader>ss :e ~/.config/nvim/init.vim<cr>
 
@@ -66,14 +72,14 @@ map <leader>g :GFiles<CR>
 map <leader>p :FZF<CR>
 map <c-b> :Buffers<CR>
 map <leader>a :Ag<CR>
-""map <leader>r :Rg<CR>
+map <leader>r :Rg<CR>
 
 "COQ
 let g:coq_settings = { 'auto_start': 'shut-up' }
 
 "Rust
 let g:rustfmt_autosave = 1
-map <leader>r :RustRun<CR>
+""map <leader>r :RustRun<CR>
 
 " nerdtree
 map <silent> <Tab> :NERDTreeTabsToggle<CR>
@@ -149,5 +155,10 @@ require("toggleterm").setup({
   close_on_exit = true -- close the terminal window when the process exits
 })
 
+require("which-key").setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  }
 EOF
 
