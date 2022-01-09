@@ -6,6 +6,7 @@ Plug 'jistr/vim-nerdtree-tabs'
 
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'shaunsingh/nord.nvim'
+Plug 'ryanoasis/vim-devicons'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -31,6 +32,8 @@ set clipboard+=unnamedplus
 " Set Copy to System clipboard
 set clipboard=unnamed
 set termguicolors
+
+set encoding=utf8
 
 syntax enable
 filetype plugin on
@@ -77,9 +80,12 @@ map <leader>r :Rg<CR>
 "COQ
 let g:coq_settings = { 'auto_start': 'shut-up' }
 
+"GO
+let g:go_fmt_command = "goimports"
+map <leader>i :GoImpl<CR>
+
 "Rust
-let g:rustfmt_autosave = 1
-""map <leader>r :RustRun<CR>
+"let g:rustfmt_autosave = 1
 
 " nerdtree
 map <silent> <Tab> :NERDTreeTabsToggle<CR>
@@ -112,6 +118,10 @@ vim.g.nord_contrast = true
 vim.g.nord_borders = false
 vim.g.nord_disable_background = false
 vim.g.nord_italic = false
+
+vim.cmd([[
+set shell=fish
+]])
 
 -- Load the colorscheme
 require('nord').set()
@@ -160,5 +170,7 @@ require("which-key").setup {
     -- or leave it empty to use the default settings
     -- refer to the configuration section below
   }
+
+
 EOF
 
