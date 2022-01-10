@@ -138,7 +138,7 @@ local lspconfig = require "lspconfig"
 local coq = require "coq" 
 
 lspconfig.gopls.setup(coq.lsp_ensure_capabilities({
-    cmd = {"gopls", "serve"},
+    cmd = {"/Users/wanglei/go/bin/gopls", "serve"},
     settings = {
       gopls = {
         analyses = {
