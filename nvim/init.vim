@@ -21,8 +21,10 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'rust-lang/rust.vim'
 
 Plug 'neovim/nvim-lspconfig'
-Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
-Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+"Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
+"Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 
 call plug#end() 
 
@@ -55,14 +57,10 @@ for s:i in range(1,9)
     execute 'nnoremap <Leader>' . s:i . ' :' . s:i . 'wincmd w<CR>'
 endfor
 
-" 符号补全
-"inoremap ( ()<Esc>i
-"inoremap [ []<Esc>i
-"inoremap < <><Esc>i
-"""inoremap { {}<Esc>i
-"inoremap ' ''<Esc>i
-"inoremap " ""<Esc>i
-"inoremap {<CR> {<CR>}<Esc>O
+
+let g:neovide_cursor_trail_length=0
+let g:neovide_cursor_animation_length=0.021
+let g:neovide_cursor_vfx_mode = "railgun"
 
 " which key
 set timeoutlen=400
@@ -80,16 +78,28 @@ map <leader>r :Rg<CR>
 "COQ
 let g:coq_settings = { 'auto_start': 'shut-up' }
 
+"COC
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+
 "GO
 let g:go_fmt_command = "goimports"
 map <leader>i :GoImpl<CR>
 
 "Rust
-"let g:rustfmt_autosave = 1
+let g:rustfmt_autosave = 1
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
 " nerdtree
 map <silent> <Tab> :NERDTreeTabsToggle<CR>
 map <leader>f :NERDTreeFind<cr>
+nnoremap <leader>n :NERDTree .<CR>
+let NERDTreeChDirMode=2
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeQuitOnOpen = 0
 let g:NERDTreeWinPos = "left"
@@ -135,22 +145,22 @@ require('lualine').setup({
 })
 
 local lspconfig = require "lspconfig"
-local coq = require "coq" 
-
-lspconfig.gopls.setup(coq.lsp_ensure_capabilities({
-    cmd = {"/Users/wanglei/go/bin/gopls", "serve"},
-    settings = {
-      gopls = {
-        analyses = {
-          unusedparams = true,
-        },
-        staticcheck = true,
-      },
-    },
-  }))
-
-lspconfig.rust_analyzer.setup(coq.lsp_ensure_capabilities({
-}))
+-- local coq = require "coq" 
+-- 
+-- lspconfig.gopls.setup(coq.lsp_ensure_capabilities({
+--     cmd = {"/Users/wanglei/go/bin/gopls", "serve"},
+--     settings = {
+--       gopls = {
+--         analyses = {
+--           unusedparams = true,
+--         },
+--         staticcheck = true,
+--       },
+--     },
+--   }))
+-- 
+-- lspconfig.rust_analyzer.setup(coq.lsp_ensure_capabilities({
+-- }))
 
 require("toggleterm").setup({
   -- size can be a number or function which is passed the current terminal
@@ -170,7 +180,6 @@ require("which-key").setup {
     -- or leave it empty to use the default settings
     -- refer to the configuration section below
   }
-
 
 EOF
 
