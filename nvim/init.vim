@@ -17,6 +17,7 @@ Plug 'airblade/vim-gitgutter'
 
 " Go
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
 " Rust
 Plug 'rust-lang/rust.vim'
 
@@ -46,8 +47,7 @@ set autoindent
 set tabstop=4 " 设置Tab长度为4空格
 set shiftwidth=4 " 设置自动缩进长度为4空格
 
-set guifont=FiraCode\ Nerd\ Font\ Mono:h15
-
+set guifont=FiraCode\ Nerd\ Font\ Mono:h16
 
 " window
 let mapleader=" "
@@ -60,12 +60,15 @@ endfor
 
 let g:neovide_cursor_trail_length=0
 let g:neovide_cursor_animation_length=0.021
-let g:neovide_cursor_vfx_mode = "railgun"
+let g:neovide_cursor_vfx_mode = "pixiedust"
 
 " which key
 set timeoutlen=400
 
+" Config
 map <leader>ss :e ~/.config/nvim/init.vim<cr>
+" auto insert ;
+map <leader>; $a;<cr>
 
 "FZF
 let g:fzf_preview_window = []
@@ -84,11 +87,12 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR
 
 
 "GO
-let g:go_fmt_command = "goimports"
-map <leader>i :GoImpl<CR>
+"let g:go_fmt_command = "goimports"
+"map <leader>i :GoImpl<CR>
 
 "Rust
 let g:rustfmt_autosave = 1
+
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
