@@ -7,6 +7,7 @@ Plug 'jistr/vim-nerdtree-tabs'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'shaunsingh/nord.nvim'
 Plug 'ryanoasis/vim-devicons'
+Plug 'karb94/neoscroll.nvim'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -20,6 +21,7 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " Rust
 Plug 'rust-lang/rust.vim'
+Plug 'puremourning/vimspector'
 
 Plug 'neovim/nvim-lspconfig'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -51,6 +53,7 @@ set guifont=FiraCode\ Nerd\ Font\ Mono:h16
 
 " window
 let mapleader=" "
+:cd ~
 
 " <Leader> [1-9] move to window [1-9]
 for s:i in range(1,9)
@@ -59,7 +62,7 @@ endfor
 
 
 let g:neovide_cursor_trail_length=0
-let g:neovide_cursor_animation_length=0.021
+let g:neovide_cursor_animation_length=0.018
 let g:neovide_cursor_vfx_mode = "pixiedust"
 
 " which key
@@ -68,7 +71,7 @@ set timeoutlen=400
 " Config
 map <leader>ss :e ~/.config/nvim/init.vim<cr>
 " auto insert ;
-map <leader>; $a;<cr>
+map <c-;> $a;<cr>
 
 "FZF
 let g:fzf_preview_window = []
@@ -92,6 +95,7 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR
 
 "Rust
 let g:rustfmt_autosave = 1
+let g:vimspector_enable_mappings = 'HUMAN'
 
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
@@ -184,6 +188,10 @@ require("which-key").setup {
     -- or leave it empty to use the default settings
     -- refer to the configuration section below
   }
+
+require('neoscroll').setup({
+	mappings = {'<C-u>', '<C-d>'}
+})
 
 EOF
 
