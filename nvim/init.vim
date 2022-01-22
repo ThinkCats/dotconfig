@@ -8,6 +8,7 @@ Plug 'nvim-lualine/lualine.nvim'
 Plug 'shaunsingh/nord.nvim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'karb94/neoscroll.nvim'
+Plug 'sunjon/shade.nvim'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -31,7 +32,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end() 
 
-set nu
+set number relativenumber
 set hidden
 set clipboard+=unnamedplus
 " Set Copy to System clipboard
@@ -54,6 +55,7 @@ set guifont=FiraCode\ Nerd\ Font\ Mono:h16
 " window
 let mapleader=" "
 :cd ~
+
 
 " <Leader> [1-9] move to window [1-9]
 for s:i in range(1,9)
@@ -191,6 +193,16 @@ require("which-key").setup {
 
 require('neoscroll').setup({
 	mappings = {'<C-u>', '<C-d>'}
+})
+
+require'shade'.setup({
+  overlay_opacity = 50,
+  opacity_step = 1,
+  keys = {
+    brightness_up    = '<C-Up>',
+    brightness_down  = '<C-Down>',
+    --toggle           = '<Leader>s',
+  }
 })
 
 EOF
