@@ -7,6 +7,7 @@
 1. 首先要有coc插件，插件完成后，使用命令安装java server, `:CocInstall coc-java`
 2. treesitter 安装语法插件，大陆网络遇到多次的网络连接问题，多试几次才行
 3. java支持lombok，需要下载lombok，然后配置coc文件。
+
 （1）下载保存lombok：
 ```
 mkdir /usr/local/share/lombok
